@@ -70,14 +70,14 @@ class AppRouter {
         ),
       ],
       redirect: (context, state) {
-        final authState = context.read<AuthBloc>().state;
-        if (authState is AuthLoggedIn) {
-          return AppRoutes.primary;
-        } else if (authState is AuthLoggedOut) {
-          return AppRoutes.login;
-        }
+        // final authState = context.read<AuthBloc>().state;
+        // if (authState is AuthLoggedIn) {
+        //   return AppRoutes.primary;
+        // } else if (authState is AuthLoggedOut) {
+        //   return AppRoutes.login;
+        // }
 
-        return null;
+        // return null;
       },
     );
     return router;

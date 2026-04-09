@@ -11,7 +11,7 @@ void main() async {
     DeviceOrientation.portraitUp,
   ]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  await EnvironmentConfig.init();
+  // await EnvironmentConfig.init();
   await configureInjection();
   runApp(const MainApp());
 }

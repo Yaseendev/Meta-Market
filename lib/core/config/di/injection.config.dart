@@ -26,13 +26,13 @@ import 'package:supermarket/features/Auth/data/repositories/auth_repository_impl
 import 'package:supermarket/features/Auth/domain/repositories/auth_repository.dart'
     as _i900;
 import 'package:supermarket/features/Auth/domain/use_cases/check_app_state_use_case.dart'
-    as _i297;
+    as _i814;
 import 'package:supermarket/features/Auth/domain/use_cases/google_auth_use_case.dart'
-    as _i869;
+    as _i398;
 import 'package:supermarket/features/Auth/domain/use_cases/login_use_case.dart'
-    as _i615;
+    as _i468;
 import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart'
-    as _i421;
+    as _i815;
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart'
     as _i400;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
@@ -76,19 +76,19 @@ extension GetItInjectableX on _i174.GetIt {
           userLocalDataSource: gh<_i744.UserLocalDataSource>(),
           authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
         ));
-    gh.lazySingleton<_i869.GoogleAuthUseCase>(() =>
-        _i869.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i297.CheckAppStateUseCase>(() =>
-        _i297.CheckAppStateUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i421.SignupUseCase>(
-        () => _i421.SignupUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i615.LoginUseCase>(
-        () => _i615.LoginUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i815.SignupUseCase>(
+        () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i468.LoginUseCase>(
+        () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i398.GoogleAuthUseCase>(() =>
+        _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i814.CheckAppStateUseCase>(() =>
+        _i814.CheckAppStateUseCase(authRepository: gh<_i900.AuthRepository>()));
     gh.factory<_i400.AuthBloc>(() => _i400.AuthBloc(
-          gh<_i615.LoginUseCase>(),
-          gh<_i421.SignupUseCase>(),
-          gh<_i869.GoogleAuthUseCase>(),
-          gh<_i297.CheckAppStateUseCase>(),
+          gh<_i468.LoginUseCase>(),
+          gh<_i815.SignupUseCase>(),
+          gh<_i398.GoogleAuthUseCase>(),
+          gh<_i814.CheckAppStateUseCase>(),
         ));
     return this;
   }
