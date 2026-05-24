@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:supermarket/core/config/constants/constants.dart';
 import 'package:supermarket/core/config/constants/images.dart';
+import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/dialogs/dialogs.dart';
 import '../blocs/bloc/auth_bloc.dart';
 import '../widgets/signup_form.dart';
@@ -26,7 +26,7 @@ class SignupScreen extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: kAppPadding2,
+              horizontal: UISpaces.md,
               vertical: 8,
             ),
             child: Column(
@@ -47,7 +47,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: kAppPadding2),
+                const SizedBox(height: UISpaces.md),
                 Expanded(child: SignupForm()),
               ],
             ),

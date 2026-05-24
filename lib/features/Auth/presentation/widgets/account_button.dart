@@ -55,38 +55,36 @@ class _AccountButtonState extends State<AccountButton> {
           duration: const Duration(milliseconds: 250),
           onEnd: () => setState(() => isAnimating = !isAnimating),
           curve: Curves.easeIn,
-          child: 
-          // isStretched
-          //     ? GradientElevatedButton(
-          //         gradient: AppColors.gradinat,
-          //         child: Text(
-          //           widget.label.toUpperCase(),
-          //           style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 18,
-          //           ),
-          //         ),
-          //         onPressed: () {
-          //           widget.onPress();
-          //         },
-          //         style: ButtonStyle(
-          //           shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          //             borderRadius: BorderRadius.circular(100),
-          //           )),
-          //           padding: MaterialStateProperty.all(
-          //               EdgeInsets.symmetric(vertical: 14, horizontal: 35)),
-          //         ),
-          //       )
-          //     : 
+          child:
+              // isStretched
+              //     ? GradientElevatedButton(
+              //         gradient: AppColors.gradinat,
+              //         child: Text(
+              //           widget.label.toUpperCase(),
+              //           style: TextStyle(
+              //             color: Colors.white,
+              //             fontSize: 18,
+              //           ),
+              //         ),
+              //         onPressed: () {
+              //           widget.onPress();
+              //         },
+              //         style: ButtonStyle(
+              //           shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(100),
+              //           )),
+              //           padding: MaterialStateProperty.all(
+              //               EdgeInsets.symmetric(vertical: 14, horizontal: 35)),
+              //         ),
+              //       )
+              //     :
               Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: AppColors.gradinat
-                  ),
-                  padding: EdgeInsets.all(12),
-                  child: Center(
-                      child: CircularProgressIndicator(color: Colors.white)),
-                ),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle, gradient: AppColors.gradient),
+            padding: EdgeInsets.all(12),
+            child:
+                Center(child: CircularProgressIndicator(color: Colors.white)),
+          ),
         ),
       ),
     );

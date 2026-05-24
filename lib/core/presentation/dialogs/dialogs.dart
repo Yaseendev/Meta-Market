@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:supermarket/core/config/constants/constants.dart';
+import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 
 void showNoInternetSnackBar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -8,10 +8,10 @@ void showNoInternetSnackBar(BuildContext context) {
     duration: const Duration(seconds: 2),
     margin: const EdgeInsets.symmetric(
       vertical: 10,
-      horizontal: kAppPadding2,
+      horizontal: UISpaces.md,
     ),
     shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(kAppRadius)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(UISpaces.radius)),
     content: Row(
       children: [
         Icon(
@@ -31,10 +31,10 @@ void showErrorSnackBar(BuildContext context, String error) {
     behavior: SnackBarBehavior.floating,
     margin: const EdgeInsets.symmetric(
       vertical: 10,
-      horizontal: kAppPadding2,
+      horizontal: UISpaces.md,
     ),
     shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(kAppRadius)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(UISpaces.radius)),
     content: Row(
       children: [
         Icon(

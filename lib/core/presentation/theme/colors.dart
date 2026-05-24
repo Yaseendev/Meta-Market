@@ -5,6 +5,7 @@ class AppColors {
   //static const Color SECONDARY_COLOR = Color(0xFFE9EFF5);
   static const Color SECONDARY_COLOR = Color(0xFF669FD7);
   static const Color BACKGROUND_COLOR = Color(0xFFF7F8F9);
+  static const Color BORDER_COLOR = Color(0xFFE0E0E0);
 
   static final MaterialColor PRIMARY_SWATCH =
       MaterialColor(PRIMARY_COLOR.value, <int, Color>{
@@ -20,7 +21,7 @@ class AppColors {
     900: PRIMARY_COLOR.withOpacity(1),
   });
 
-    static final Gradient gradinat = LinearGradient(
+  static final Gradient gradient = LinearGradient(
     colors: [
       PRIMARY_COLOR,
       SECONDARY_COLOR,

@@ -48,6 +48,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  fonts:
+    - family: Andale
+      fonts:
+        - asset: assets/fonts/AndaleMono.ttf
   assets:
     - assets/images/
     - assets/translations/

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:supermarket/core/config/constants/constants.dart';
 import 'package:supermarket/core/config/constants/images.dart';
+import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 
 class SplashErrorWidget extends StatelessWidget {
   final String errorMsg;
@@ -25,7 +25,7 @@ class SplashErrorWidget extends StatelessWidget {
             //height: MediaQuery.of(context).size.height * .4,
           ),
         ),
-        const SizedBox(height: kAppPadding),
+        SizedBox(height: UISpaces.sm),
         Text(
           errorMsg,
           textAlign: TextAlign.center,
@@ -34,7 +34,7 @@ class SplashErrorWidget extends StatelessWidget {
             //fontWeight: FontWeight.bold
           ),
         ),
-        const SizedBox(height: kAppPadding),
+        SizedBox(height: UISpaces.sm),
         ElevatedButton(
           onPressed: onTryAgain,
           child: Text('Try Again'),
@@ -44,7 +44,7 @@ class SplashErrorWidget extends StatelessWidget {
               vertical: 12,
             ),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(kAppRadius),
+              borderRadius: BorderRadius.circular(UISpaces.radius),
             ),
           ),
         ),
