@@ -16,4 +16,6 @@ class Urls {
   static const String LOG_IN_API = '$AUTH_PATH/sign-in';
   static const String REGISTER = '$AUTH_PATH/register';
   static const String GOOGLE_AUTH = '$AUTH_PATH/google';
+
+  static const String HOME = '/home';
 }
