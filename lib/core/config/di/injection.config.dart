@@ -1,5 +1,5 @@
-// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -35,6 +35,18 @@ import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart'
     as _i815;
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart'
     as _i400;
+import 'package:supermarket/features/Home/data/data_sources/remote/home_remote_data_source.dart'
+    as _i1037;
+import 'package:supermarket/features/Home/data/repositories/home_repository_impl.dart'
+    as _i1001;
+import 'package:supermarket/features/Home/domain/repositories/home_repository.dart'
+    as _i84;
+import 'package:supermarket/features/Home/domain/use_cases/get_home_data_use_case.dart'
+    as _i711;
+import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart'
+    as _i265;
+import 'package:supermarket/features/Onboarding/presentation/blocs/splash_bloc/splash_bloc.dart'
+    as _i441;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
     as _i744;
 
@@ -58,13 +70,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => injectableModule.secureStorage);
     gh.lazySingleton<_i361.Dio>(() => injectableModule.dioDevInstance);
     gh.lazySingleton<_i116.GoogleSignIn>(() => injectableModule.googleSignIIn);
+    gh.lazySingleton<_i895.Connectivity>(() => injectableModule.connectivity);
     gh.lazySingleton<_i744.UserLocalDataSource>(
         () => _i744.UserLocalDataSourceImpl(
               gh<_i558.FlutterSecureStorage>(),
               gh<_i460.SharedPreferences>(),
             ));
-    gh.lazySingleton<_i369.ConnectionChecker>(
-        () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()));
     gh.lazySingleton<_i636.AuthRemoteDataSource>(
         () => _i636.AuthRemoteDataSourceImpl(
               dioClient: gh<_i361.Dio>(),
@@ -72,24 +83,36 @@ extension GetItInjectableX on _i174.GetIt {
             ));
     gh.lazySingleton<_i875.AuthInterceptor>(
         () => _i875.AuthInterceptor(gh<_i744.UserLocalDataSource>()));
+    gh.lazySingleton<_i1037.HomeRemoteDataSource>(
+        () => _i1037.HomeRemoteDataSourceImpl(gh<_i361.Dio>()));
+    gh.lazySingleton<_i369.ConnectionChecker>(
+        () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()));
     gh.lazySingleton<_i900.AuthRepository>(() => _i799.AuthRepositoryImpl(
           userLocalDataSource: gh<_i744.UserLocalDataSource>(),
           authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
         ));
-    gh.lazySingleton<_i815.SignupUseCase>(
-        () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i468.LoginUseCase>(
-        () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i398.GoogleAuthUseCase>(() =>
-        _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i84.HomeRepository>(
+        () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()));
+    gh.lazySingleton<_i711.GetHomeDataUseCase>(
+        () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()));
+    gh.factory<_i265.HomeCubit>(
+        () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()));
     gh.lazySingleton<_i814.CheckAppStateUseCase>(() =>
         _i814.CheckAppStateUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i398.GoogleAuthUseCase>(() =>
+        _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i468.LoginUseCase>(
+        () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()));
+    gh.lazySingleton<_i815.SignupUseCase>(
+        () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()));
     gh.factory<_i400.AuthBloc>(() => _i400.AuthBloc(
           gh<_i468.LoginUseCase>(),
           gh<_i815.SignupUseCase>(),
           gh<_i398.GoogleAuthUseCase>(),
           gh<_i814.CheckAppStateUseCase>(),
         ));
+    gh.lazySingleton<_i441.SplashBloc>(
+        () => _i441.SplashBloc(gh<_i814.CheckAppStateUseCase>()));
     return this;
   }
 }

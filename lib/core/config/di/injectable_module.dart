@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -46,4 +47,7 @@ abstract class InjectableModule {
 
   @lazySingleton
   GoogleSignIn get googleSignIIn => GoogleSignIn();
+
+  @lazySingleton
+  Connectivity get connectivity => Connectivity();
 }
