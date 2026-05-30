@@ -7,7 +7,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supermarket/core/config/constants/urls.dart';
 import 'package:supermarket/core/config/di/injection.dart';
-import 'package:supermarket/core/data/network/auth_inerceptor.dart';
+import 'package:supermarket/core/data/network/auth_interceptor.dart';
 
 @module
 abstract class InjectableModule {

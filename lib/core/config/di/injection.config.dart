@@ -17,7 +17,7 @@ import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supermarket/core/config/di/injectable_module.dart' as _i906;
-import 'package:supermarket/core/data/network/auth_inerceptor.dart' as _i875;
+import 'package:supermarket/core/data/network/auth_interceptor.dart' as _i875;
 import 'package:supermarket/core/services/connection_checker.dart' as _i369;
 import 'package:supermarket/features/Auth/data/datasources/auth_remote_datasource.dart'
     as _i636;
