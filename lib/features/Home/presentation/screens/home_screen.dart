@@ -66,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                           id: '$b')),
                 ),
                 const SizedBox(height: UISpaces.sm),
+                HomeCategoriesView(),
               ],
             );
           } else if (state.isInProgress) {

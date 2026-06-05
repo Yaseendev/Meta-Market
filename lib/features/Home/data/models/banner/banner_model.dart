@@ -5,10 +5,17 @@ part 'banner_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class BannerModel {
+  @JsonKey(name: 'image_url')
   final String imageUrl;
   final String? id;
+  @JsonKey(name: 'target_url')
+  final String? targetUrl;
 
-  const BannerModel({required this.imageUrl, required this.id});
+  const BannerModel({
+    required this.imageUrl,
+    required this.id,
+    this.targetUrl,
+  });
 
   factory BannerModel.fromJson(Map<String, dynamic> json) =>
       _$BannerModelFromJson(json);
@@ -16,5 +23,6 @@ class BannerModel {
   Banner toDomain() => Banner(
         id: id,
         imageUrl: imageUrl,
+        targetUrl: targetUrl,
       );
 }
