@@ -6,6 +6,8 @@ import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
 import 'package:supermarket/features/Home/domain/entities/home_data.dart';
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart';
+import 'package:supermarket/features/Home/presentation/widgets/home_categories_view.dart';
+import 'package:supermarket/features/Home/presentation/widgets/home_offers_view.dart';
 import 'package:supermarket/features/Home/presentation/widgets/home_search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -66,7 +68,10 @@ class HomeScreen extends StatelessWidget {
                           id: '$b')),
                 ),
                 const SizedBox(height: UISpaces.sm),
-                HomeCategoriesView(),
+                HomeCategoriesView(state.item?.topCategories ?? []),
+                const SizedBox(height: UISpaces.sm),
+                HomeOffersView(state.item?.offers ?? []),
+                const SizedBox(height: UISpaces.sm),
               ],
             );
           } else if (state.isInProgress) {

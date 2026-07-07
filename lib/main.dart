@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:supermarket/core/config/di/injection.dart';
@@ -12,6 +13,15 @@ void main() async {
   ]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   // await EnvironmentConfig.init();
+  await EasyLocalization.ensureInitialized();
   await configureInjection();
-  runApp(const MainApp());
+  runApp(EasyLocalization(
+    supportedLocales: const [Locale('en'), Locale('ar')],
+    path: 'assets/translations',
+    fallbackLocale: const Locale('en'),
+    useOnlyLangCode: true,
+    useFallbackTranslations: true,
+    child: const MainApp(),
+  ));
 }
+//dart run easy_localization:generate -f keys -O lib/core/presentation/translations -S assets/translations -o locale_keys.g.dart

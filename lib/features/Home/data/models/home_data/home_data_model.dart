@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:supermarket/features/Home/data/models/banner/banner_model.dart';
 import 'package:supermarket/features/Home/domain/entities/home_data.dart';
-import 'package:supermarket/features/Product/data/models/category/category_model.dart';
+import 'package:supermarket/features/Categories/data/models/category/category_model.dart';
 import 'package:supermarket/features/Product/data/models/product/product_model.dart';
 
 part 'home_data_model.g.dart';
