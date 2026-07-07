@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supermarket/core/config/di/injection.dart';
+import 'package:supermarket/core/presentation/blocs/base_states/base_state.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
+import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
+import 'package:supermarket/core/presentation/widgets/error_view.dart';
+import 'package:supermarket/core/presentation/widgets/loading_widget.dart';
+import 'package:supermarket/features/Categories/domain/entities/category.dart';
+import 'package:supermarket/features/Categories/presentations/blocs/categories_cubit/categories_cubit.dart';
+import 'package:supermarket/features/Categories/presentations/widgets/categories_view.dart';
 import 'package:supermarket/features/Home/presentation/widgets/home_search_widget.dart';
 
 class CategoriesScreen extends StatefulWidget {
@@ -14,27 +22,36 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   final CategoriesCubit _categoriesCubit = getIt<CategoriesCubit>();
 
   @override
+  void initState() {
+    super.initState();
+    _categoriesCubit.getCategories();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: UISpaces.sm, vertical: UISpaces.xs),
-        child: Column(
-          children: [
-            HomeSearchWidget(),
-            const SizedBox(height: UISpaces.sm),
-            Row(
-              children: [
-                NavigationRail(
-                  selectedIndex: ,
-                  destinations: [
-                    
-                  ],
-                ),
-                const VerticalDivider(thickness: 1, width: 1),
-              ],
-            ),
-          ],
+        child: BlocBuilder<CategoriesCubit, BaseState<List<Category>>>(
+          bloc: _categoriesCubit,
+          builder: (context, state) {
+            if (state.isInProgress) {
+              return const LoadingWidget();
+            } else if (state.isFailure) {
+              return ErrorView(
+                message: state.failure?.message,
+                onRetry: _categoriesCubit.getCategories,
+              );
+            } else {
+              final data = state.item ?? [];
+              return data.isEmpty
+                  ? Center(
+                      child: Text(LocaleKeys.noData.tr(context: context)),
+                    )
+                  : CategoriesView(data);
+            }
+          },
         ),
       ),
     );

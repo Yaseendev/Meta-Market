@@ -4,5 +4,9 @@
     "cart": "Cart",
     "more": "More",
     "topCat": "Top Categories",
-    "offers": "Offers"
+    "offers": "Offers",
+    "errorMsg": "Something went wrong",
+    "retry": "Retry",
+    "noData": "No Data",
+    "all": "All"
 }
