@@ -9,5 +9,9 @@ abstract class  LocaleKeys {
   static const more = 'more';
   static const topCat = 'topCat';
   static const offers = 'offers';
+  static const errorMsg = 'errorMsg';
+  static const retry = 'retry';
+  static const noData = 'noData';
+  static const all = 'all';
 
 }

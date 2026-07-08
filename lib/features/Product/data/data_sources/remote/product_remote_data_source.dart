@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:supermarket/core/config/constants/urls.dart';
@@ -19,5 +20,6 @@ abstract class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   @POST(Urls.SEARCH_PRODUCTS)
-  Future<List<ProductModel>> fetchProducts({int? categoryId});
+  Future<List<ProductModel>> fetchProducts(
+      {@Field('category_id') int? categoryId});
 }

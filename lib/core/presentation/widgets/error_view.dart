@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';

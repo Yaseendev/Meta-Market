@@ -11,10 +11,10 @@ HomeDataModel _$HomeDataModelFromJson(Map<String, dynamic> json) =>
       banner: (json['banner'] as List<dynamic>)
           .map((e) => BannerModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      categories: (json['categories'] as List<dynamic>)
+      topCategories: (json['categories'] as List<dynamic>)
           .map((e) => CategoryModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      products: (json['products'] as List<dynamic>)
+      offers: (json['offers'] as List<dynamic>)
           .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );

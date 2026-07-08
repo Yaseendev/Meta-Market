@@ -17,7 +17,7 @@ import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supermarket/core/config/di/injectable_module.dart' as _i906;
-import 'package:supermarket/core/data/network/auth_interceptor.dart' as _i875;
+import 'package:supermarket/core/data/network/auth_interceptor.dart' as _i402;
 import 'package:supermarket/core/services/connection_checker.dart' as _i369;
 import 'package:supermarket/features/Auth/data/datasources/auth_remote_datasource.dart'
     as _i636;
@@ -35,6 +35,16 @@ import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart'
     as _i815;
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart'
     as _i400;
+import 'package:supermarket/features/Categories/data/data_sources/remote/categories_remote_data_source.dart'
+    as _i513;
+import 'package:supermarket/features/Categories/data/repositories/category_repository_impl.dart'
+    as _i502;
+import 'package:supermarket/features/Categories/domain/repositories/category_repository.dart'
+    as _i741;
+import 'package:supermarket/features/Categories/domain/use_cases/get_categories_use_case.dart'
+    as _i347;
+import 'package:supermarket/features/Categories/presentations/blocs/categories_cubit/categories_cubit.dart'
+    as _i552;
 import 'package:supermarket/features/Home/data/data_sources/remote/home_remote_data_source.dart'
     as _i1037;
 import 'package:supermarket/features/Home/data/repositories/home_repository_impl.dart'
@@ -47,6 +57,16 @@ import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dar
     as _i265;
 import 'package:supermarket/features/Onboarding/presentation/blocs/splash_bloc/splash_bloc.dart'
     as _i441;
+import 'package:supermarket/features/Product/data/data_sources/remote/product_remote_data_source.dart'
+    as _i584;
+import 'package:supermarket/features/Product/data/repositories/product_repository_impl.dart'
+    as _i623;
+import 'package:supermarket/features/Product/domain/repositories/product_repository.dart'
+    as _i941;
+import 'package:supermarket/features/Product/domain/use_cases/get_products_use_case.dart'
+    as _i80;
+import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart'
+    as _i814;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
     as _i744;
 
@@ -71,28 +91,44 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => injectableModule.dioDevInstance);
     gh.lazySingleton<_i116.GoogleSignIn>(() => injectableModule.googleSignIIn);
     gh.lazySingleton<_i895.Connectivity>(() => injectableModule.connectivity);
+    gh.lazySingleton<_i513.CategoriesRemoteDataSource>(
+        () => _i513.CategoriesRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i744.UserLocalDataSource>(
         () => _i744.UserLocalDataSourceImpl(
               gh<_i558.FlutterSecureStorage>(),
               gh<_i460.SharedPreferences>(),
             ));
+    gh.lazySingleton<_i584.ProductRemoteDataSource>(
+        () => _i584.ProductRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i636.AuthRemoteDataSource>(
         () => _i636.AuthRemoteDataSourceImpl(
               dioClient: gh<_i361.Dio>(),
               googleSignIn: gh<_i116.GoogleSignIn>(),
             ));
-    gh.lazySingleton<_i875.AuthInterceptor>(
-        () => _i875.AuthInterceptor(gh<_i744.UserLocalDataSource>()));
+    gh.lazySingleton<_i402.AuthInterceptor>(
+        () => _i402.AuthInterceptor(gh<_i744.UserLocalDataSource>()));
+    gh.lazySingleton<_i741.CategoryRepository>(() =>
+        _i502.CategoryRepositoryImpl(gh<_i513.CategoriesRemoteDataSource>()));
     gh.lazySingleton<_i1037.HomeRemoteDataSource>(
         () => _i1037.HomeRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i369.ConnectionChecker>(
         () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()));
+    gh.lazySingleton<_i941.ProductRepository>(
+        () => _i623.ProductRepositoryImpl(gh<_i584.ProductRemoteDataSource>()));
+    gh.lazySingleton<_i347.GetCategoriesUseCase>(
+        () => _i347.GetCategoriesUseCase(gh<_i741.CategoryRepository>()));
+    gh.lazySingleton<_i80.GetProductsUseCase>(
+        () => _i80.GetProductsUseCase(gh<_i941.ProductRepository>()));
     gh.lazySingleton<_i900.AuthRepository>(() => _i799.AuthRepositoryImpl(
           userLocalDataSource: gh<_i744.UserLocalDataSource>(),
           authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
         ));
+    gh.factory<_i814.ProductsCubit>(
+        () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()));
     gh.lazySingleton<_i84.HomeRepository>(
         () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()));
+    gh.factory<_i552.CategoriesCubit>(
+        () => _i552.CategoriesCubit(gh<_i347.GetCategoriesUseCase>()));
     gh.lazySingleton<_i711.GetHomeDataUseCase>(
         () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()));
     gh.factory<_i265.HomeCubit>(

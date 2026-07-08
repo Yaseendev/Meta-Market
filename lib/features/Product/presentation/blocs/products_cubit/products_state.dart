@@ -8,6 +8,17 @@ class ProductsState extends Equatable {
     this.selectedCategory,
   });
 
+  ProductsState copyWith({
+    int? selectedCategory,
+    List<Product>? products,
+  }) {
+    return ProductsState(
+      selectedCategory: selectedCategory ?? this.selectedCategory,
+      products: products ?? this.products,
+    );
+  }
+
   @override
   List<Object?> get props => [selectedCategory, products];
+
 }
