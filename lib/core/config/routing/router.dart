@@ -5,6 +5,8 @@ import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/presentation/animations/page_route_animations.dart';
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart';
 import 'package:supermarket/features/Auth/presentation/screens/login_screen.dart';
+import 'package:supermarket/features/Cart/presentation/screens/cart_screen.dart';
+import 'package:supermarket/features/Categories/presentations/screens/categories_screen.dart';
 import 'package:supermarket/features/Dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:supermarket/features/Home/presentation/screens/home_screen.dart';
 import 'package:supermarket/features/Onboarding/presentation/screens/splash_screen.dart';
@@ -52,12 +54,12 @@ class AppRouter {
                 GoRoute(
                   name: AppRoutes.browse,
                   path: AppRoutes.browse,
-                  builder: (context, state) => Container(),
+                  builder: (context, state) => const CategoriesScreen(),
                 ),
                 GoRoute(
                   name: AppRoutes.cart,
                   path: AppRoutes.cart,
-                  builder: (context, state) => Container(),
+                  builder: (context, state) => const CartScreen(),
                 ),
                 GoRoute(
                   name: AppRoutes.more,
