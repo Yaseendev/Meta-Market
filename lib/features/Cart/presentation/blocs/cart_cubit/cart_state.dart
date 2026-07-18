@@ -4,7 +4,7 @@ class CartState extends Equatable {
   final List<CartItem> items;
 
   const CartState({
-    this.items = const [],
+    required this.items,
   });
 
   int get totalItems => items.fold(0, (sum, item) => sum + item.quantity);
