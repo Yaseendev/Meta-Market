@@ -15,7 +15,7 @@ class HomeCubit extends Cubit<BaseState<HomeData>> {
   }
 
   void getData() async {
-    emit(state.setInProgressState());
+    emit(state.setLoadingState());
     final result = await _getHomeDataUseCase();
     result.fold(
       (l) => emit(state.setFailureState(l)),

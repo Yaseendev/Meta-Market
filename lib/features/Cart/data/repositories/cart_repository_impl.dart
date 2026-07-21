@@ -18,4 +18,14 @@ class CartRepositoryImpl with BaseRepositoryImpl implements CartRepository {
       return Right(cartItems.map((c) => c.toDomain()).toList());
     });
   }
+
+  @override
+  FutureOrEitherFailureOrData<CartItem> addItem(int productId) async {
+    return await request(() async {
+      final cartItem = await _cartRemoteDataSource.addItem(
+        productId: productId,
+      );
+      return Right(cartItem.toDomain());
+    });
+  }
 }

@@ -10,12 +10,15 @@ class CategoriesCubit extends Cubit<BaseState<List<Category>>> {
   CategoriesCubit(this._getCategoriesUseCase) : super(const BaseState.init());
 
   void getCategories() async {
-    emit(state.setInProgressState());
+    emit(state.setLoadingState());
     final result = await _getCategoriesUseCase();
-    result.fold((f) {
-      emit(state.setFailureState(f));
-    }, (c) {
-      emit(state.setSuccessState(c));
-    });
+    result.fold(
+      (f) {
+        emit(state.setFailureState(f));
+      },
+      (c) {
+        emit(state.setSuccessState(c));
+      },
+    );
   }
 }

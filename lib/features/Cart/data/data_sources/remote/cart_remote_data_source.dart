@@ -8,6 +8,7 @@ part 'cart_remote_data_source.g.dart';
 
 abstract class CartRemoteDataSource {
   Future<List<CartItemModel>> getCartItems();
+  Future<CartItemModel> addItem({required int productId, int quantity = 1});
 }
 
 @LazySingleton(as: CartRemoteDataSource)
@@ -21,4 +22,11 @@ abstract class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   @override
   @GET(Urls.CART_PATH)
   Future<List<CartItemModel>> getCartItems();
+
+  @override
+  @POST(Urls.ADD_ITEM)
+  Future<CartItemModel> addItem({
+    @Field('product_id') required int productId,
+    @Field() int quantity = 1,
+  });
 }

@@ -29,9 +29,7 @@ class HomeScreen extends StatelessWidget {
         ),
         titleSpacing: 6,
         title: Padding(
-          padding: const EdgeInsets.only(
-            bottom: 5,
-          ),
+          padding: const EdgeInsets.only(bottom: 5),
           child: Text('Meta Market'),
         ),
         centerTitle: false,
@@ -56,16 +54,20 @@ class HomeScreen extends StatelessWidget {
           if (state.isSuccess) {
             return ListView(
               padding: EdgeInsets.symmetric(
-                  horizontal: UISpaces.sm, vertical: UISpaces.xs),
+                horizontal: UISpaces.sm,
+                vertical: UISpaces.xs,
+              ),
               children: [
                 HomeSearchWidget(),
                 const SizedBox(height: UISpaces.sm),
                 BannerCarousel(
                   banners: List.generate(
-                      state.item?.banner.length ?? 0,
-                      (b) => BannerModel(
-                          imagePath: state.item?.banner[b].imageUrl ?? '',
-                          id: '$b')),
+                    state.item?.banner.length ?? 0,
+                    (b) => BannerModel(
+                      imagePath: state.item?.banner[b].imageUrl ?? '',
+                      id: '$b',
+                    ),
+                  ),
                 ),
                 const SizedBox(height: UISpaces.sm),
                 HomeCategoriesView(state.item?.topCategories ?? []),
@@ -74,10 +76,8 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: UISpaces.sm),
               ],
             );
-          } else if (state.isInProgress) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+          } else if (state.isLoading) {
+            return const Center(child: CircularProgressIndicator());
           }
           //TODO: implement error view
 

@@ -35,6 +35,16 @@ import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart'
     as _i815;
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart'
     as _i400;
+import 'package:supermarket/features/Cart/data/data_sources/remote/cart_remote_data_source.dart'
+    as _i652;
+import 'package:supermarket/features/Cart/data/repositories/cart_repository_impl.dart'
+    as _i927;
+import 'package:supermarket/features/Cart/domain/repositories/cart_repository.dart'
+    as _i671;
+import 'package:supermarket/features/Cart/domain/usecases/get_cart_use_case.dart'
+    as _i660;
+import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart'
+    as _i772;
 import 'package:supermarket/features/Categories/data/data_sources/remote/categories_remote_data_source.dart'
     as _i513;
 import 'package:supermarket/features/Categories/data/repositories/category_repository_impl.dart'
@@ -91,6 +101,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i361.Dio>(() => injectableModule.dioDevInstance);
     gh.lazySingleton<_i116.GoogleSignIn>(() => injectableModule.googleSignIIn);
     gh.lazySingleton<_i895.Connectivity>(() => injectableModule.connectivity);
+    gh.lazySingleton<_i652.CartRemoteDataSource>(
+        () => _i652.CartRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i513.CategoriesRemoteDataSource>(
         () => _i513.CategoriesRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i744.UserLocalDataSource>(
@@ -125,6 +137,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i814.ProductsCubit>(
         () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()));
+    gh.lazySingleton<_i671.CartRepository>(
+        () => _i927.CartRepositoryImpl(gh<_i652.CartRemoteDataSource>()));
     gh.lazySingleton<_i84.HomeRepository>(
         () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()));
     gh.factory<_i552.CategoriesCubit>(
@@ -147,8 +161,12 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i398.GoogleAuthUseCase>(),
           gh<_i814.CheckAppStateUseCase>(),
         ));
+    gh.lazySingleton<_i660.GetCartUseCase>(
+        () => _i660.GetCartUseCase(gh<_i671.CartRepository>()));
     gh.lazySingleton<_i441.SplashBloc>(
         () => _i441.SplashBloc(gh<_i814.CheckAppStateUseCase>()));
+    gh.factory<_i772.CartCubit>(
+        () => _i772.CartCubit(gh<_i660.GetCartUseCase>()));
     return this;
   }
 }

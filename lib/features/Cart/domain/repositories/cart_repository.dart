@@ -5,4 +5,5 @@ abstract class CartRepository {
   const CartRepository();
 
   FutureOrEitherFailureOrData<List<CartItem>> getCart();
+  FutureOrEitherFailureOrData<CartItem> addItem(int productId);
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/di/injection.dart';
+import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -17,6 +18,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final HomeCubit _homeCubit = getIt<HomeCubit>();
+  final CartCubit _cartCubit = getIt<CartCubit>();
   void _goTo(int index) {
     widget._navigationShell.goBranch(
       index,
@@ -25,9 +27,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _cartCubit.getCart();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeCubit>.value(
-      value: _homeCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeCubit>.value(value: _homeCubit),
+        BlocProvider<CartCubit>.value(value: _cartCubit),
+      ],
       child: Scaffold(
         body: widget._navigationShell,
         bottomNavigationBar: BottomNavigationBar(

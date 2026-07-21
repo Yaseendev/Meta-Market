@@ -1,13 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:supermarket/core/errors/failure.dart';
 
-enum BaseStatus {
-  initial,
-  inProgress,
-  success,
-  failure,
-  noConnection,
-}
+enum BaseStatus { initial, loading, success, failure, noConnection }
 
 class BaseState<T> extends Equatable {
   final BaseStatus status;
@@ -26,20 +20,19 @@ class BaseState<T> extends Equatable {
 
   const factory BaseState.noConnection() = NoConnectionState<T>;
 
-  BaseState<T> setInitialState() => BaseState<T>(
-        status: BaseStatus.initial,
-      );
+  BaseState<T> setInitialState() => BaseState<T>(status: BaseStatus.initial);
 
-  BaseState<T> setInProgressState() => BaseState<T>(
-        status: BaseStatus.inProgress,
-      );
+  BaseState<T> setLoadingState() => BaseState<T>(status: BaseStatus.loading);
   BaseState<T> setSuccessState(T item) =>
       BaseState<T>(status: BaseStatus.success, item: item);
 
   BaseState<T> setFailureState(Failure failure, [bool? rFlag]) => BaseState<T>(
-      status: BaseStatus.failure, failure: failure, refreshFlag: rFlag);
+    status: BaseStatus.failure,
+    failure: failure,
+    refreshFlag: rFlag,
+  );
 
-  bool get isInProgress => status == BaseStatus.inProgress;
+  bool get isLoading => status == BaseStatus.loading;
 
   bool get isFailure => status == BaseStatus.failure;
 
@@ -80,27 +73,21 @@ class InitState<T> extends BaseState<T> {
 }
 
 class LoadingState<T> extends BaseState<T> {
-  const LoadingState() : super(status: BaseStatus.inProgress);
+  const LoadingState() : super(status: BaseStatus.loading);
 }
 
 class SuccessState<T> extends BaseState<T> {
   final T? data;
 
   const SuccessState({this.data})
-      : super(
-          item: data,
-          status: BaseStatus.success,
-        );
+    : super(item: data, status: BaseStatus.success);
 }
 
 class ErrorState<T> extends BaseState<T> {
   final Failure? fail;
 
   const ErrorState({this.fail})
-      : super(
-          failure: fail,
-          status: BaseStatus.failure,
-        );
+    : super(failure: fail, status: BaseStatus.failure);
 }
 
 class NoConnectionState<T> extends BaseState<T> {

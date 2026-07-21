@@ -42,11 +42,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       child: Scaffold(
         body: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: UISpaces.sm, vertical: UISpaces.xs),
+            horizontal: UISpaces.sm,
+            vertical: UISpaces.xs,
+          ),
           child: BlocBuilder<CategoriesCubit, BaseState<List<Category>>>(
             bloc: _categoriesCubit,
             builder: (context, state) {
-              if (state.isInProgress) {
+              if (state.isLoading) {
                 return const LoadingWidget();
               } else if (state.isFailure) {
                 return ErrorView(
@@ -71,27 +73,30 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                                     data,
                                     selectedCategoryId:
                                         productsState.item?.selectedCategory ??
-                                            0,
+                                        0,
                                     onSelected: (c) => _productsCubit
                                         .getProducts(categoryId: c),
                                   ),
                                   Expanded(
-                                      child: switch (state.status) {
-                                    BaseStatus.failure => ErrorView(
+                                    child: switch (state.status) {
+                                      BaseStatus.failure => ErrorView(
                                         message: state.failure?.message,
                                         onRetry: () =>
                                             _productsCubit.getProducts(
-                                                categoryId: productsState
-                                                    .item?.selectedCategory),
+                                              categoryId: productsState
+                                                  .item
+                                                  ?.selectedCategory,
+                                            ),
                                       ),
-                                    BaseStatus.inProgress =>
-                                      const LoadingWidget(),
-                                    BaseStatus.success => ProductsView(
+                                      BaseStatus.loading =>
+                                        const LoadingWidget(),
+                                      BaseStatus.success => ProductsView(
                                         products:
                                             productsState.item?.products ?? [],
                                       ),
-                                    _ => const SizedBox.shrink(),
-                                  }),
+                                      _ => const SizedBox.shrink(),
+                                    },
+                                  ),
                                 ],
                               );
                             },

@@ -13,21 +13,26 @@ class ProductsCubit extends Cubit<BaseState<ProductsState>> {
   ProductsCubit(this._getProductsUseCase) : super(const BaseState.init());
 
   void getProducts({int? categoryId}) async {
-    emit(state.copyWith(
-      status: BaseStatus.inProgress,
-      item: state.item?.copyWith(
-        selectedCategory: categoryId,
+    emit(
+      state.copyWith(
+        status: BaseStatus.loading,
+        item: state.item?.copyWith(selectedCategory: categoryId),
       ),
-    ));
-    final result =
-        await _getProductsUseCase(GetProductsParams(category: categoryId));
-    result.fold((f) {
-      emit(state.setFailureState(f));
-    }, (p) {
-      emit(state.setSuccessState(ProductsState(
-        selectedCategory: categoryId,
-        products: p,
-      )));
-    });
+    );
+    final result = await _getProductsUseCase(
+      GetProductsParams(category: categoryId),
+    );
+    result.fold(
+      (f) {
+        emit(state.setFailureState(f));
+      },
+      (p) {
+        emit(
+          state.setSuccessState(
+            ProductsState(selectedCategory: categoryId, products: p),
+          ),
+        );
+      },
+    );
   }
 }
