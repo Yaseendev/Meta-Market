@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supermarket/core/presentation/utils/text_util.dart';
 import 'package:supermarket/features/Cart/domain/entities/cart_item.dart';
+import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
 
 class CartItemCard extends StatelessWidget {
   final CartItem item;
@@ -16,10 +18,17 @@ class CartItemCard extends StatelessWidget {
         subtitle: Text(TextUtil.formatCurrency(item.product.price)),
         trailing: Column(
           children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.add_circle_rounded)),
+            IconButton(
+              onPressed: () {
+                context.read<CartCubit>().increaseQuantity(item.id);
+              },
+              icon: Icon(Icons.add_circle_rounded),
+            ),
             Text('${item.quantity}'),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<CartCubit>().decreaseQuantity(item.id);
+              },
               icon: Icon(Icons.remove_circle_rounded),
             ),
           ],

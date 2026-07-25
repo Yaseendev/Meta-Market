@@ -13,5 +13,20 @@ abstract class  LocaleKeys {
   static const retry = 'retry';
   static const noData = 'noData';
   static const all = 'all';
+  static const delivery = 'delivery';
+  static const pickup = 'pickup';
+  static const subtotal = 'subtotal';
+  static const deliveryFees = 'deliveryFees';
+  static const total = 'total';
+  static const order = 'order';
+  static const cart1 = 'cart1';
+  static const cart2 = 'cart2';
+  static const startShopping = 'startShopping';
+  static const profile = 'profile';
+  static const addresses = 'addresses';
+  static const orders = 'orders';
+  static const deleteAccount = 'deleteAccount';
+  static const logout = 'logout';
+  static const language = 'language';
 
 }

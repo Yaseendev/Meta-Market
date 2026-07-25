@@ -5,6 +5,7 @@ import 'package:supermarket/core/domain/types.dart';
 import 'package:supermarket/features/Cart/data/data_sources/remote/cart_remote_data_source.dart';
 import 'package:supermarket/features/Cart/domain/entities/cart_item.dart';
 import 'package:supermarket/features/Cart/domain/repositories/cart_repository.dart';
+import 'package:supermarket/features/Cart/domain/usecases/update_item_use_case.dart';
 
 @LazySingleton(as: CartRepository)
 class CartRepositoryImpl with BaseRepositoryImpl implements CartRepository {
@@ -26,6 +27,25 @@ class CartRepositoryImpl with BaseRepositoryImpl implements CartRepository {
         productId: productId,
       );
       return Right(cartItem.toDomain());
+    });
+  }
+
+  @override
+  FutureOrEitherFailureOrData<Unit> updateItem(UpdateItemParams params) async {
+    return await request(() async {
+      await _cartRemoteDataSource.updateItem(
+        productId: params.productId,
+        quantity: params.quantity,
+      );
+      return const Right(unit);
+    });
+  }
+
+  @override
+  FutureOrEitherFailureOrData<Unit> removeItem(int itemId) async {
+    return await request(() async {
+      await _cartRemoteDataSource.removeItem(itemId);
+      return const Right(unit);
     });
   }
 }

@@ -7,8 +7,8 @@ part of 'product_model.dart';
 // **************************************************************************
 
 ProductModel _$ProductModelFromJson(Map<String, dynamic> json) => ProductModel(
-      id: (json['id'] as num).toInt(),
-      name: json['name'] as String,
-      price: json['price'] as num,
-      image: json['image'] as String?,
-    );
+  id: (json['id'] as num).toInt(),
+  name: json['name'] as String,
+  price: json['price'] as num,
+  image: json['image'] as String?,
+);

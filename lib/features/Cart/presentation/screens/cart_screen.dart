@@ -1,12 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/presentation/blocs/base_states/base_state.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
+import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/core/presentation/widgets/error_view.dart';
 import 'package:supermarket/core/presentation/widgets/loading_widget.dart';
 import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
+import 'package:supermarket/features/Cart/presentation/widgets/cart_item_card.dart';
+import 'package:supermarket/features/Cart/presentation/widgets/delivery_option_card.dart';
+import 'package:supermarket/features/Cart/presentation/widgets/price_summary_view.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -30,14 +35,14 @@ class CartScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // TODO: empty cart icon
-                  Text('Looking for something?'),
-                  Text('Add your favorite items to your cart'),
+                  Text(LocaleKeys.cart1.tr(context: context)),
+                  Text(LocaleKeys.cart2.tr(context: context)),
                   const SizedBox(height: UISpaces.lg),
                   ElevatedButton(
                     onPressed: () {
                       context.go(AppRoutes.home);
                     },
-                    child: Text('Start Shopping!'),
+                    child: Text(LocaleKeys.startShopping.tr(context: context)),
                   ),
                 ],
               )
@@ -46,8 +51,17 @@ class CartScreen extends StatelessWidget {
                   // items
                   ...state.item?.items.map((item) => CartItemCard(item)) ?? [],
                   // deleviery/ pickup
+                  DeliveryOptionCard(state.item?.deliveryOption),
                   // suptotal - delevery fees - total
+                  PriceSummaryView(),
                   // checkout button
+                  const SizedBox(height: UISpaces.sm),
+                  ElevatedButton(
+                    onPressed: () {
+                      //TODO
+                    },
+                    child: Text(LocaleKeys.order.tr(context: context)),
+                  ),
                 ],
               );
       },

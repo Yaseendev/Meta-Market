@@ -1,5 +1,5 @@
 {
-    "home":"Home",
+    "home": "Home",
     "browse": "Browse",
     "cart": "Cart",
     "more": "More",
@@ -8,5 +8,20 @@
     "errorMsg": "Something went wrong",
     "retry": "Retry",
     "noData": "No Data",
-    "all": "All"
+    "all": "All",
+    "delivery": "Delivery",
+    "pickup": "Pickup",
+    "subtotal": "Subtotal",
+    "deliveryFees": "Delivery Fees",
+    "total": "Total",
+    "order": "Order",
+    "cart1": "Looking for something?",
+    "cart2": "Add your favorite items to your cart",
+    "startShopping": "Start Shopping!",
+    "profile": "Profile",
+    "addresses": "Addresses",
+    "orders": "Orders",
+    "deleteAccount": "Delete Account",
+    "logout": "Log Out",
+    "language": "Language"
 }

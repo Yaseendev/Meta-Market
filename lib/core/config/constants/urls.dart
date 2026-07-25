@@ -18,6 +18,8 @@ class Urls {
   static const String GOOGLE_AUTH = '$AUTH_PATH/google';
   static const String SEARCH_PRODUCTS = '$PRODUCT_PATH/search';
   static const String ADD_ITEM = '$CART_PATH/add';
+  static const String UPDATE_ITEM = '$CART_PATH/update';
+  static const String REMOVE_ITEM = '$CART_PATH/remove';
 
   static const String HOME = '/home';
 }

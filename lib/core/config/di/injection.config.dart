@@ -1,5 +1,5 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format width=80
+// GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
 // InjectableConfigGenerator
@@ -41,8 +41,14 @@ import 'package:supermarket/features/Cart/data/repositories/cart_repository_impl
     as _i927;
 import 'package:supermarket/features/Cart/domain/repositories/cart_repository.dart'
     as _i671;
+import 'package:supermarket/features/Cart/domain/usecases/add_item_use_case.dart'
+    as _i518;
 import 'package:supermarket/features/Cart/domain/usecases/get_cart_use_case.dart'
     as _i660;
+import 'package:supermarket/features/Cart/domain/usecases/remove_item_use_case.dart'
+    as _i818;
+import 'package:supermarket/features/Cart/domain/usecases/update_item_use_case.dart'
+    as _i1034;
 import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart'
     as _i772;
 import 'package:supermarket/features/Categories/data/data_sources/remote/categories_remote_data_source.dart'
@@ -81,92 +87,135 @@ import 'package:supermarket/features/User/data/datasources/user_local_datasource
     as _i744;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final injectableModule = _$InjectableModule();
     await gh.lazySingletonAsync<_i460.SharedPreferences>(
       () => injectableModule.prefs,
       preResolve: true,
     );
     gh.lazySingleton<_i558.FlutterSecureStorage>(
-        () => injectableModule.secureStorage);
+      () => injectableModule.secureStorage,
+    );
     gh.lazySingleton<_i361.Dio>(() => injectableModule.dioDevInstance);
     gh.lazySingleton<_i116.GoogleSignIn>(() => injectableModule.googleSignIIn);
     gh.lazySingleton<_i895.Connectivity>(() => injectableModule.connectivity);
-    gh.lazySingleton<_i652.CartRemoteDataSource>(
-        () => _i652.CartRemoteDataSourceImpl(gh<_i361.Dio>()));
     gh.lazySingleton<_i513.CategoriesRemoteDataSource>(
-        () => _i513.CategoriesRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i744.UserLocalDataSource>(
-        () => _i744.UserLocalDataSourceImpl(
-              gh<_i558.FlutterSecureStorage>(),
-              gh<_i460.SharedPreferences>(),
-            ));
+      () => _i513.CategoriesRemoteDataSourceImpl.new(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i652.CartRemoteDataSource>(
+      () => _i652.CartRemoteDataSourceImpl.new(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i584.ProductRemoteDataSource>(
-        () => _i584.ProductRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i636.AuthRemoteDataSource>(
-        () => _i636.AuthRemoteDataSourceImpl(
-              dioClient: gh<_i361.Dio>(),
-              googleSignIn: gh<_i116.GoogleSignIn>(),
-            ));
-    gh.lazySingleton<_i402.AuthInterceptor>(
-        () => _i402.AuthInterceptor(gh<_i744.UserLocalDataSource>()));
-    gh.lazySingleton<_i741.CategoryRepository>(() =>
-        _i502.CategoryRepositoryImpl(gh<_i513.CategoriesRemoteDataSource>()));
-    gh.lazySingleton<_i1037.HomeRemoteDataSource>(
-        () => _i1037.HomeRemoteDataSourceImpl(gh<_i361.Dio>()));
-    gh.lazySingleton<_i369.ConnectionChecker>(
-        () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()));
-    gh.lazySingleton<_i941.ProductRepository>(
-        () => _i623.ProductRepositoryImpl(gh<_i584.ProductRemoteDataSource>()));
-    gh.lazySingleton<_i347.GetCategoriesUseCase>(
-        () => _i347.GetCategoriesUseCase(gh<_i741.CategoryRepository>()));
-    gh.lazySingleton<_i80.GetProductsUseCase>(
-        () => _i80.GetProductsUseCase(gh<_i941.ProductRepository>()));
-    gh.lazySingleton<_i900.AuthRepository>(() => _i799.AuthRepositoryImpl(
-          userLocalDataSource: gh<_i744.UserLocalDataSource>(),
-          authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
-        ));
-    gh.factory<_i814.ProductsCubit>(
-        () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()));
+      () => _i584.ProductRemoteDataSourceImpl.new(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i671.CartRepository>(
-        () => _i927.CartRepositoryImpl(gh<_i652.CartRemoteDataSource>()));
-    gh.lazySingleton<_i84.HomeRepository>(
-        () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()));
-    gh.factory<_i552.CategoriesCubit>(
-        () => _i552.CategoriesCubit(gh<_i347.GetCategoriesUseCase>()));
-    gh.lazySingleton<_i711.GetHomeDataUseCase>(
-        () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()));
-    gh.factory<_i265.HomeCubit>(
-        () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()));
-    gh.lazySingleton<_i814.CheckAppStateUseCase>(() =>
-        _i814.CheckAppStateUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i398.GoogleAuthUseCase>(() =>
-        _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i468.LoginUseCase>(
-        () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.lazySingleton<_i815.SignupUseCase>(
-        () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()));
-    gh.factory<_i400.AuthBloc>(() => _i400.AuthBloc(
-          gh<_i468.LoginUseCase>(),
-          gh<_i815.SignupUseCase>(),
-          gh<_i398.GoogleAuthUseCase>(),
-          gh<_i814.CheckAppStateUseCase>(),
-        ));
+      () => _i927.CartRepositoryImpl(gh<_i652.CartRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i744.UserLocalDataSource>(
+      () => _i744.UserLocalDataSourceImpl(
+        gh<_i558.FlutterSecureStorage>(),
+        gh<_i460.SharedPreferences>(),
+      ),
+    );
+    gh.lazySingleton<_i518.AddItemUseCase>(
+      () => _i518.AddItemUseCase(gh<_i671.CartRepository>()),
+    );
+    gh.lazySingleton<_i741.CategoryRepository>(
+      () =>
+          _i502.CategoryRepositoryImpl(gh<_i513.CategoriesRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i1037.HomeRemoteDataSource>(
+      () => _i1037.HomeRemoteDataSourceImpl.new(gh<_i361.Dio>()),
+    );
+    gh.lazySingleton<_i369.ConnectionChecker>(
+      () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()),
+    );
+    gh.lazySingleton<_i636.AuthRemoteDataSource>(
+      () => _i636.AuthRemoteDataSourceImpl(
+        dioClient: gh<_i361.Dio>(),
+        googleSignIn: gh<_i116.GoogleSignIn>(),
+      ),
+    );
+    gh.lazySingleton<_i941.ProductRepository>(
+      () => _i623.ProductRepositoryImpl(gh<_i584.ProductRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i347.GetCategoriesUseCase>(
+      () => _i347.GetCategoriesUseCase(gh<_i741.CategoryRepository>()),
+    );
+    gh.lazySingleton<_i402.AuthInterceptor>(
+      () => _i402.AuthInterceptor(gh<_i744.UserLocalDataSource>()),
+    );
+    gh.lazySingleton<_i818.RemoveItemUseCase>(
+      () => _i818.RemoveItemUseCase(gh<_i671.CartRepository>()),
+    );
     gh.lazySingleton<_i660.GetCartUseCase>(
-        () => _i660.GetCartUseCase(gh<_i671.CartRepository>()));
-    gh.lazySingleton<_i441.SplashBloc>(
-        () => _i441.SplashBloc(gh<_i814.CheckAppStateUseCase>()));
+      () => _i660.GetCartUseCase(gh<_i671.CartRepository>()),
+    );
+    gh.lazySingleton<_i1034.UpdateItemUseCase>(
+      () => _i1034.UpdateItemUseCase(gh<_i671.CartRepository>()),
+    );
+    gh.factory<_i552.CategoriesCubit>(
+      () => _i552.CategoriesCubit(gh<_i347.GetCategoriesUseCase>()),
+    );
+    gh.lazySingleton<_i84.HomeRepository>(
+      () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i900.AuthRepository>(
+      () => _i799.AuthRepositoryImpl(
+        userLocalDataSource: gh<_i744.UserLocalDataSource>(),
+        authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
+      ),
+    );
+    gh.lazySingleton<_i80.GetProductsUseCase>(
+      () => _i80.GetProductsUseCase(gh<_i941.ProductRepository>()),
+    );
     gh.factory<_i772.CartCubit>(
-        () => _i772.CartCubit(gh<_i660.GetCartUseCase>()));
+      () => _i772.CartCubit(
+        gh<_i660.GetCartUseCase>(),
+        gh<_i518.AddItemUseCase>(),
+        gh<_i1034.UpdateItemUseCase>(),
+        gh<_i818.RemoveItemUseCase>(),
+      ),
+    );
+    gh.factory<_i814.ProductsCubit>(
+      () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()),
+    );
+    gh.lazySingleton<_i711.GetHomeDataUseCase>(
+      () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()),
+    );
+    gh.factory<_i265.HomeCubit>(
+      () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()),
+    );
+    gh.lazySingleton<_i815.SignupUseCase>(
+      () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i468.LoginUseCase>(
+      () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i398.GoogleAuthUseCase>(
+      () => _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i814.CheckAppStateUseCase>(
+      () => _i814.CheckAppStateUseCase(
+        authRepository: gh<_i900.AuthRepository>(),
+      ),
+    );
+    gh.factory<_i400.AuthBloc>(
+      () => _i400.AuthBloc(
+        gh<_i468.LoginUseCase>(),
+        gh<_i815.SignupUseCase>(),
+        gh<_i398.GoogleAuthUseCase>(),
+        gh<_i814.CheckAppStateUseCase>(),
+      ),
+    );
+    gh.lazySingleton<_i441.SplashBloc>(
+      () => _i441.SplashBloc(gh<_i814.CheckAppStateUseCase>()),
+    );
     return this;
   }
 }

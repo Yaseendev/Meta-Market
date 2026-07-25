@@ -7,7 +7,7 @@ part of 'banner_model.dart';
 // **************************************************************************
 
 BannerModel _$BannerModelFromJson(Map<String, dynamic> json) => BannerModel(
-      imageUrl: json['image_url'] as String,
-      id: json['id'] as String?,
-      targetUrl: json['target_url'] as String?,
-    );
+  imageUrl: json['image_url'] as String,
+  id: json['id'] as String?,
+  targetUrl: json['target_url'] as String?,
+);
