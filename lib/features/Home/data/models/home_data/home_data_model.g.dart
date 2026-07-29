@@ -8,7 +8,7 @@ part of 'home_data_model.dart';
 
 HomeDataModel _$HomeDataModelFromJson(Map<String, dynamic> json) =>
     HomeDataModel(
-      banner: (json['banner'] as List<dynamic>)
+      banners: (json['banners'] as List<dynamic>)
           .map((e) => BannerModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       topCategories: (json['categories'] as List<dynamic>)

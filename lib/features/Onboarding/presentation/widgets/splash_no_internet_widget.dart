@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:supermarket/core/config/constants/images.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
-import '../blocs/splash_bloc/splash_bloc.dart';
+import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart';
 
 class SplashNoInternetWidget extends StatelessWidget {
   const SplashNoInternetWidget({super.key});
@@ -33,7 +33,7 @@ class SplashNoInternetWidget extends StatelessWidget {
         SizedBox(height: UISpaces.sm),
         ElevatedButton(
           onPressed: () {
-            context.read<SplashBloc>().add(CheckAppState());
+            context.read<AuthBloc>().add(CheckAuthState());
           },
           child: Text('Try Again'),
           style: ElevatedButton.styleFrom(

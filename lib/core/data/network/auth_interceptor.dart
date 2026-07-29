@@ -10,10 +10,16 @@ class AuthInterceptor extends Interceptor {
 
   @override
   void onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final authToken = await _authLocalDataSource.getToken();
-    options.headers
-        .putIfAbsent('Authorization', () => 'Bearer ${authToken ?? ''}');
+    if (authToken?.isNotEmpty ?? false) {
+      options.headers.putIfAbsent(
+        'Authorization',
+        () => 'Bearer ${authToken ?? ''}',
+      );
+    }
     handler.next(options);
   }
 

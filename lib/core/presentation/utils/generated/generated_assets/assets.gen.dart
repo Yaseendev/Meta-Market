@@ -35,6 +35,10 @@ class $AssetsImagesGen {
   SvgGenImage get noInternet =>
       const SvgGenImage('assets/images/no_internet.svg');
 
+  /// File path: assets/images/placeholder.jpg
+  AssetGenImage get placeholder =>
+      const AssetGenImage('assets/images/placeholder.jpg');
+
   /// List of all assets
   List<dynamic> get values => [
     error,
@@ -42,6 +46,7 @@ class $AssetsImagesGen {
     logoTransparent,
     logoTransparentText,
     noInternet,
+    placeholder,
   ];
 }
 
@@ -61,8 +66,12 @@ class $AssetsTranslationsGen {
 class Assets {
   const Assets._();
 
+  static const String aEnv = '.env';
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsTranslationsGen translations = $AssetsTranslationsGen();
+
+  /// List of all assets
+  static List<String> get values => [aEnv];
 }
 
 class AssetGenImage {

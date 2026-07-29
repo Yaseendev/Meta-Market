@@ -8,22 +8,23 @@ part 'home_data_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class HomeDataModel {
-  final List<BannerModel> banner;
+  final List<BannerModel> banners;
   @JsonKey(name: 'categories')
   final List<CategoryModel> topCategories;
   final List<ProductModel> offers;
 
-  const HomeDataModel(
-      {required this.banner,
-      required this.topCategories,
-      required this.offers});
+  const HomeDataModel({
+    required this.banners,
+    required this.topCategories,
+    required this.offers,
+  });
 
   factory HomeDataModel.fromJson(Map<String, dynamic> json) =>
       _$HomeDataModelFromJson(json);
 
   HomeData toDomain() => HomeData(
-        banner: banner.map((e) => e.toDomain()).toList(),
-        topCategories: topCategories.map((e) => e.toDomain()).toList(),
-        offers: offers.map((e) => e.toDomain()).toList(),
-      );
+    banners: banners.map((e) => e.toDomain()).toList(),
+    topCategories: topCategories.map((e) => e.toDomain()).toList(),
+    offers: offers.map((e) => e.toDomain()).toList(),
+  );
 }

@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        routerConfig: AppRouter.getRouterConfig(),
+        routerConfig: router,
         theme: AppTheme.themeData,
       ),
     );

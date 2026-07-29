@@ -2,12 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:supermarket/core/config/constants/urls.dart';
-import 'package:supermarket/features/Product/data/models/product/product_model.dart';
+import 'package:supermarket/features/Product/data/models/products_response/products_response_model.dart';
 
 part 'product_remote_data_source.g.dart';
 
 abstract class ProductRemoteDataSource {
-  Future<List<ProductModel>> fetchProducts({int? categoryId});
+  Future<ProductsResponseModel> fetchProducts({
+    int? categoryId,
+    String? keyword,
+    int? limit,
+  });
 }
 
 @LazySingleton(as: ProductRemoteDataSource)
@@ -20,6 +24,9 @@ abstract class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   @POST(Urls.SEARCH_PRODUCTS)
-  Future<List<ProductModel>> fetchProducts(
-      {@Field('category_id') int? categoryId});
+  Future<ProductsResponseModel> fetchProducts({
+    @Field('category_id') int? categoryId,
+    @Field() String? keyword,
+    @Field('size') int? limit,
+  });
 }

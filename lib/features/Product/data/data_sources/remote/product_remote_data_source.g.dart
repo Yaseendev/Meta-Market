@@ -20,14 +20,22 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<List<ProductModel>> fetchProducts({int? categoryId}) async {
+  Future<ProductsResponseModel> fetchProducts({
+    int? categoryId,
+    String? keyword,
+    int? limit,
+  }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = {'category_id': categoryId};
+    final _data = {
+      'category_id': categoryId,
+      'keyword': keyword,
+      'size': limit,
+    };
     _data.removeWhere((k, v) => v == null);
-    final _options = _setStreamType<List<ProductModel>>(
+    final _options = _setStreamType<ProductsResponseModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -37,12 +45,10 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<List<dynamic>>(_options);
-    late List<ProductModel> _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ProductsResponseModel _value;
     try {
-      _value = _result.data!
-          .map((dynamic i) => ProductModel.fromJson(i as Map<String, dynamic>))
-          .toList();
+      _value = ProductsResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, _result);
       rethrow;

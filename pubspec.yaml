@@ -58,6 +58,7 @@ flutter:
   assets:
     - assets/images/
     - assets/translations/
+    - .env
 
 flutter_gen:
   output: lib/core/presentation/utils/generated/generated_assets/

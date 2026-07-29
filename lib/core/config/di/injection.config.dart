@@ -71,8 +71,8 @@ import 'package:supermarket/features/Home/domain/use_cases/get_home_data_use_cas
     as _i711;
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart'
     as _i265;
-import 'package:supermarket/features/Onboarding/presentation/blocs/splash_bloc/splash_bloc.dart'
-    as _i441;
+import 'package:supermarket/features/Home/presentation/blocs/search/home_search_cubit.dart'
+    as _i115;
 import 'package:supermarket/features/Product/data/data_sources/remote/product_remote_data_source.dart'
     as _i584;
 import 'package:supermarket/features/Product/data/repositories/product_repository_impl.dart'
@@ -191,6 +191,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i265.HomeCubit>(
       () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()),
     );
+    gh.factory<_i115.HomeSearchCubit>(
+      () => _i115.HomeSearchCubit(gh<_i80.GetProductsUseCase>()),
+    );
     gh.lazySingleton<_i815.SignupUseCase>(
       () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()),
     );
@@ -212,9 +215,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i398.GoogleAuthUseCase>(),
         gh<_i814.CheckAppStateUseCase>(),
       ),
-    );
-    gh.lazySingleton<_i441.SplashBloc>(
-      () => _i441.SplashBloc(gh<_i814.CheckAppStateUseCase>()),
     );
     return this;
   }

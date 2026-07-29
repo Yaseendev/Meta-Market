@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/constants/images.dart';
+import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/dialogs/dialogs.dart';
 import '../blocs/bloc/auth_bloc.dart';
@@ -20,6 +22,7 @@ class LoginScreen extends StatelessWidget {
         } else if (state is AuthLoggedIn) {
           //TODO: LoadUserData + Go to home screen
           print('Logged in |)');
+          context.go(AppRoutes.home);
         }
       },
       child: Scaffold(
@@ -31,6 +34,7 @@ class LoginScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
+                const SizedBox(height: UISpaces.sm),
                 Column(
                   children: [
                     Image.asset(
@@ -47,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: UISpaces.md),
+                const SizedBox(height: UISpaces.lg),
                 Expanded(child: LoginForm()),
               ],
             ),

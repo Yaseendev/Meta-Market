@@ -13,11 +13,16 @@ class HomeCategoriesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       spacing: UISpaces.xs,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: categories.isNotEmpty
           ? [
-              Text(LocaleKeys.topCat.tr(context: context)),
+              Text(
+                LocaleKeys.topCat.tr(context: context),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
               Wrap(
                 spacing: UISpaces.sm,
+                runSpacing: UISpaces.xs,
                 children: categories.map((c) => HomeCategoryCard(c)).toList(),
               ),
             ]

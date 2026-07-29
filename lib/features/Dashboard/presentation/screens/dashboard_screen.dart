@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/di/injection.dart';
+import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart';
 
@@ -46,19 +48,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
           onTap: _goTo,
           items: [
             BottomNavigationBarItem(
-              label: 'Home',
-              icon: Icon(Icons.home_rounded),
+              label: LocaleKeys.home.tr(context: context),
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home_rounded),
             ),
             BottomNavigationBarItem(
-              label: 'Browse',
+              label: LocaleKeys.browse.tr(context: context),
               icon: Icon(Icons.horizontal_split_rounded),
             ),
             BottomNavigationBarItem(
-              label: 'Cart',
-              icon: Icon(Icons.shopping_cart_rounded),
+              label: LocaleKeys.cart.tr(context: context),
+              icon: Icon(Icons.shopping_cart_outlined),
+              activeIcon: Icon(Icons.shopping_cart_rounded),
             ),
             BottomNavigationBarItem(
-              label: 'More',
+              label: LocaleKeys.more.tr(context: context),
               icon: Icon(Icons.more_horiz_rounded),
             ),
           ],

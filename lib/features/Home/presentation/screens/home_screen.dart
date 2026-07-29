@@ -62,16 +62,17 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: UISpaces.sm),
                 BannerCarousel(
                   banners: List.generate(
-                    state.item?.banner.length ?? 0,
+                    state.item?.banners.length ?? 0,
                     (b) => BannerModel(
-                      imagePath: state.item?.banner[b].imageUrl ?? '',
+                      imagePath: state.item?.banners[b].imageUrl ?? '',
                       id: '$b',
+                      boxFit: BoxFit.fill,
                     ),
                   ),
                 ),
                 const SizedBox(height: UISpaces.sm),
                 HomeCategoriesView(state.item?.topCategories ?? []),
-                const SizedBox(height: UISpaces.sm),
+                const SizedBox(height: UISpaces.md),
                 HomeOffersView(state.item?.offers ?? []),
                 const SizedBox(height: UISpaces.sm),
               ],

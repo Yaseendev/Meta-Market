@@ -13,16 +13,17 @@ class HomeOffersView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       spacing: UISpaces.xs,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: offers.isEmpty
           ? []
           : [
-              Text(LocaleKeys.offers.tr(context: context)),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  spacing: UISpaces.sm,
-                  children: offers.map((p) => HomeProductCard(p)).toList(),
-                ),
+              Text(
+                LocaleKeys.offers.tr(context: context),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              Wrap(
+                spacing: UISpaces.xs,
+                children: offers.map((p) => HomeProductCard(p)).toList(),
               ),
             ],
     );

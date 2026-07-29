@@ -10,20 +10,22 @@ class GetProductsUseCase implements UseCase<GetProductsParams, List<Product>> {
   final ProductRepository _productRepository;
 
   const GetProductsUseCase(this._productRepository);
-  
+
   @override
-  FutureOrEitherFailureOrData<List<Product>> call(GetProductsParams params) async {
+  FutureOrEitherFailureOrData<List<Product>> call(
+    GetProductsParams params,
+  ) async {
     return await _productRepository.getProducts(params);
   }
-
-
 }
 
 class GetProductsParams extends Equatable {
   final int? category;
+  final String? term;
+  final int? limit;
 
-  const GetProductsParams({this.category});
+  const GetProductsParams({this.category, this.term, this.limit});
 
   @override
-  List<Object?> get props => [category];
+  List<Object?> get props => [category, term, limit];
 }

@@ -8,10 +8,16 @@ abstract class AuthRemoteDataSource {
   Future<Map<String, dynamic>> checkToken(String token);
   Future<Map<String, dynamic>> login(String email, String password);
   Future<Map<String, dynamic>> signup(
-      String email, String password, NameModel name, String phoneNumber);
+    String email,
+    String password,
+    NameModel name,
+    String phoneNumber,
+  );
   Future<GoogleSignInAccount?> signInGoogle();
   Future<Map<String, dynamic>> authWithGoogle(
-      String googleAccessToken, NameModel name);
+    String googleAccessToken,
+    NameModel name,
+  );
 }
 
 @LazySingleton(as: AuthRemoteDataSource)
@@ -27,9 +33,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   //TODO: Refactor
   Future<Map<String, dynamic>> checkToken(String token) async {
-    final Response response = await dioClient.post(
-      Urls.TOKEN_CHECK_API,
-    );
+    final Response response = await dioClient.post(Urls.TOKEN_CHECK_API);
     return response.data;
   }
 
@@ -37,24 +41,25 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   Future<Map<String, dynamic>> login(String email, String password) async {
     final Response response = await dioClient.post(
       Urls.LOG_IN_API,
-      data: {
-        'email': email,
-        'password': password,
-      },
+      data: {'email': email, 'password': password},
     );
     return response.data;
   }
 
   @override
   Future<Map<String, dynamic>> signup(
-      String email, String password, NameModel name, String phoneNumber) async {
+    String email,
+    String password,
+    NameModel name,
+    String phoneNumber,
+  ) async {
     final Response response = await dioClient.post(
       Urls.REGISTER,
       data: {
         'email': email,
         'password': password,
         'phoneNumber': phoneNumber,
-        // 'name': name.toMap(),
+        'name': name.toJson(),
       },
     );
     return response.data;
@@ -67,7 +72,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Future<Map<String, dynamic>> authWithGoogle(
-      String googleAccessToken, NameModel name) async {
+    String googleAccessToken,
+    NameModel name,
+  ) async {
     final Response response = await dioClient.post(
       Urls.GOOGLE_AUTH,
       data: {

@@ -17,10 +17,15 @@ class ProductRepositoryImpl
 
   @override
   FutureOrEitherFailureOrData<List<Product>> getProducts(
-      GetProductsParams params) async {
+    GetProductsParams params,
+  ) async {
     return await request(() async {
-      final products = await _productRemoteDataSource.fetchProducts();
-      return Right(products.map((p) => p.toDomain()).toList());
+      final productsRes = await _productRemoteDataSource.fetchProducts(
+        keyword: params.term,
+        categoryId: params.category,
+        limit: params.limit,
+      );
+      return Right(productsRes.toDomain().products);
     });
   }
 }

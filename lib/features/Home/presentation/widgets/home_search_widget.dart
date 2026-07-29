@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:searchfield/searchfield.dart';
+import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
+import 'package:supermarket/features/Home/presentation/blocs/search/home_search_cubit.dart';
+import 'package:supermarket/features/Product/domain/entities/product.dart';
 
 class HomeSearchWidget extends StatelessWidget {
-  const HomeSearchWidget({super.key});
+  HomeSearchWidget({super.key});
+
+  final HomeSearchCubit _searchCubit = getIt<HomeSearchCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -11,17 +16,23 @@ class HomeSearchWidget extends StatelessWidget {
       spacing: UISpaces.xs,
       children: [
         Expanded(
-          child: SearchField(
-            suggestions: [],
-            // searchInputDecoration: SearchInputDecoration(
-            //   hintText: 'Search',
-            //   hintStyle: TextStyle(
-            //     fontSize: 16,
-            //     fontWeight: FontWeight.w500,
-            //   ),
-            // ),
+          child: SearchField<Product>(
+            suggestions: _searchCubit.state
+                .map((p) => SearchFieldListItem<Product>(p.name, item: p))
+                .toList(),
+            searchInputDecoration: SearchInputDecoration(
+              hintText: 'Search',
+              hintStyle: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+            ),
+            onSearchTextChanged: (term) async {
+              await _searchCubit.searchProducts(term);
+              return _searchCubit.state
+                  .map((p) => SearchFieldListItem<Product>(p.name, item: p))
+                  .toList();
+            },
+            onSuggestionTap: (_) {},
           ),
-      ),
+        ),
         IconButton.filled(
           onPressed: () {},
           icon: Icon(Icons.qr_code_scanner_rounded),

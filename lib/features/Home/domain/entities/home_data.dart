@@ -4,15 +4,16 @@ import 'package:supermarket/features/Categories/domain/entities/category.dart';
 import 'package:supermarket/features/Product/domain/entities/product.dart';
 
 class HomeData extends Equatable {
-  final List<Banner> banner;
+  final List<Banner> banners;
   final List<Category> topCategories;
   final List<Product> offers;
 
-  const HomeData(
-      {required this.banner,
-      required this.topCategories,
-      required this.offers});
+  const HomeData({
+    required this.banners,
+    required this.topCategories,
+    required this.offers,
+  });
 
   @override
-  List<Object?> get props => [banner, topCategories, offers];
+  List<Object?> get props => [banners, topCategories, offers];
 }

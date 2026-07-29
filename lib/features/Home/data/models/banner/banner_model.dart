@@ -5,7 +5,6 @@ part 'banner_model.g.dart';
 
 @JsonSerializable(createToJson: false)
 class BannerModel {
-  @JsonKey(name: 'image_url')
   final String imageUrl;
   final String? id;
   @JsonKey(name: 'target_url')

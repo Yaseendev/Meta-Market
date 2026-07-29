@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import '../blocs/bloc/auth_bloc.dart';
 import '../screens/signup_screen.dart';
 import 'account_button.dart';
@@ -32,7 +33,8 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100)),
+                  borderRadius: BorderRadius.circular(100),
+                ),
                 hintText: 'E-mail',
                 prefixIcon: Icon(Icons.email_outlined),
               ),
@@ -51,7 +53,8 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(100)),
+                  borderRadius: BorderRadius.circular(100),
+                ),
                 hintText: 'Password',
                 // labelText: 'Password',
                 prefixIcon: Icon(Icons.password),
@@ -76,8 +79,8 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) {
                 return value!.trim().isNotEmpty
                     ? value.trim().length > 6
-                        ? null
-                        : 'Password must be longer than 6 characters'
+                          ? null
+                          : 'Password must be longer than 6 characters'
                     : 'This field is required';
               },
             ),
@@ -92,10 +95,9 @@ class _LoginFormState extends State<LoginForm> {
                   onPress: () {
                     FocusScope.of(context).unfocus();
                     if (_formKey.currentState!.validate()) {
-                      context.read<AuthBloc>().add(LoginEvent(
-                            email: email,
-                            password: password,
-                          ));
+                      context.read<AuthBloc>().add(
+                        LoginEvent(email: email, password: password),
+                      );
                     }
                   },
                 );
@@ -106,12 +108,10 @@ class _LoginFormState extends State<LoginForm> {
               child: TextButton(
                 child: Text('Forgot Password?'),
                 onPressed: () {},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                ),
+                style: TextButton.styleFrom(padding: EdgeInsets.zero),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: UISpaces.md),
             Row(
               children: [
                 Expanded(child: Divider()),
@@ -131,8 +131,9 @@ class _LoginFormState extends State<LoginForm> {
                         },
                         icon: state is AuthGoogleLoading
                             ? CircularProgressIndicator.adaptive(
-                                valueColor:
-                                    const AlwaysStoppedAnimation(Colors.white),
+                                valueColor: const AlwaysStoppedAnimation(
+                                  Colors.white,
+                                ),
                               )
                             : Icon(
                                 FontAwesomeIcons.google,
@@ -147,14 +148,17 @@ class _LoginFormState extends State<LoginForm> {
                           ),
                         ),
                         style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Color(0xFFE6242E)),
+                          backgroundColor: MaterialStateProperty.all(
+                            Color(0xFFE6242E),
+                          ),
                           padding: MaterialStateProperty.all(
-                              const EdgeInsets.all(16)),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(100),
-                          )),
+                            const EdgeInsets.all(16),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                          ),
                         ),
                       );
                     },
@@ -166,10 +170,7 @@ class _LoginFormState extends State<LoginForm> {
                     onPressed: () {
                       //context.read<AccountBloc>().add(LoginWithFacebookEvent());
                     },
-                    icon: Icon(
-                      FontAwesomeIcons.facebookF,
-                      color: Colors.white,
-                    ),
+                    icon: Icon(FontAwesomeIcons.facebookF, color: Colors.white),
                     label: Text(
                       'Facebook',
                       style: TextStyle(
@@ -179,39 +180,21 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                     ),
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(Color(0xFF4267B2)),
+                      backgroundColor: MaterialStateProperty.all(
+                        Color(0xFF4267B2),
+                      ),
                       padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100),
-                      )),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            TextButton(
-              onPressed: () {
-                // BlocProvider<
-                //     CategoriesBloc>(
-                //   create: (context) =>
-                //       CategoriesBloc(),
-                // ),
-                // BlocProvider<SearchBloc>(
-                //   create: (context) =>
-                //       SearchBloc(),
-                //),
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    settings: RouteSettings(name: '/primary'),
-                    builder: (_) => Container())); //FIXME
-              },
-              child: Text('Continue as a visitor'),
-              style: TextButton.styleFrom(
-                splashFactory: NoSplash.splashFactory,
-              ),
-            ),
-            const SizedBox(height: 30),
+            const SizedBox(height: UISpaces.lg),
             Text.rich(
               TextSpan(
                 text: 'Don\'t have an account?  ',
@@ -222,7 +205,8 @@ class _LoginFormState extends State<LoginForm> {
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => SignupScreen()));
+                          MaterialPageRoute(builder: (_) => SignupScreen()),
+                        );
                       },
                   ),
                 ],

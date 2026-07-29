@@ -11,8 +11,10 @@ final class AppTheme {
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.PRIMARY_COLOR),
     fontFamily: FontFamily.andale,
     inputDecorationTheme: InputDecorationTheme(
-      contentPadding:
-          EdgeInsets.symmetric(horizontal: UISpaces.sm, vertical: 12),
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: UISpaces.sm,
+        vertical: 12,
+      ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(UISpaces.radius),
         borderSide: BorderSide(color: AppColors.BORDER_COLOR),
@@ -33,6 +35,19 @@ final class AppTheme {
         borderRadius: BorderRadius.circular(UISpaces.radius),
       ),
       errorStyle: TextStyle(color: Colors.red),
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      elevation: 2,
+      enableFeedback: true,
+      selectedItemColor: AppColors.PRIMARY_COLOR,
+      showUnselectedLabels: true,
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.bold,
+        color: AppColors.PRIMARY_COLOR,
+      ),
+      unselectedItemColor: Colors.black,
+      unselectedLabelStyle: TextStyle(color: Colors.black),
+      type: BottomNavigationBarType.fixed,
     ),
   );
 }

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/features/User/data/models/name_model.dart';
 
 import '../blocs/bloc/auth_bloc.dart';
@@ -45,7 +46,8 @@ class _SignupFormState extends State<SignupForm> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                           hintText: 'First Name',
                           prefixIcon: Icon(Icons.person_outline_rounded),
                         ),
@@ -65,7 +67,8 @@ class _SignupFormState extends State<SignupForm> {
                       child: TextFormField(
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(100)),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                           hintText: 'Last Name',
                           prefixIcon: Icon(Icons.person_outline_rounded),
                         ),
@@ -86,7 +89,8 @@ class _SignupFormState extends State<SignupForm> {
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                     hintText: 'E-mail',
                     prefixIcon: Icon(Icons.email_outlined),
                   ),
@@ -97,7 +101,8 @@ class _SignupFormState extends State<SignupForm> {
                   onChanged: (value) => email = value,
                   validator: (value) {
                     return !EmailValidator.validate(
-                            value ?? '') //TODO extract to a sparated file
+                          value ?? '',
+                        ) //TODO extract to a sparated file
                         ? 'Please enter a valid email'
                         : null;
                   },
@@ -106,7 +111,8 @@ class _SignupFormState extends State<SignupForm> {
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                     hintText: 'Password',
                     // labelText: 'Password',
                     prefixIcon: Icon(Icons.password),
@@ -131,8 +137,8 @@ class _SignupFormState extends State<SignupForm> {
                   validator: (value) {
                     return value!.trim().isNotEmpty
                         ? value.trim().length > 6
-                            ? null
-                            : 'Password must be longer than 6 characters'
+                              ? null
+                              : 'Password must be longer than 6 characters'
                         : 'This field is required';
                   },
                 ),
@@ -140,7 +146,8 @@ class _SignupFormState extends State<SignupForm> {
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(100)),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
                     hintText: 'Confirm Password',
                     labelText: 'Confirm Password',
                     prefixIcon: const Icon(Icons.password),
@@ -164,8 +171,8 @@ class _SignupFormState extends State<SignupForm> {
                   validator: (value) {
                     return value!.trim().isNotEmpty
                         ? value == password
-                            ? null
-                            : 'Passwords must be identical'
+                              ? null
+                              : 'Passwords must be identical'
                         : 'This field is required';
                   },
                 ),
@@ -173,31 +180,24 @@ class _SignupFormState extends State<SignupForm> {
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: IntlPhoneField(
-                    dropdownTextStyle: TextStyle(
-                      color: Colors.black,
-                    ),
+                    dropdownTextStyle: TextStyle(color: Colors.black),
                     invalidNumberMessage: 'Invalid Number',
                     autovalidateMode: AutovalidateMode.disabled,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(100)),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
                       ),
                       hintText: 'Phone Number',
                       prefixIcon: const Icon(Icons.phone),
                       errorText: _validate ? null : 'Invalid phone number',
                     ),
                     pickerDialogStyle: PickerDialogStyle(
-                      countryCodeStyle: TextStyle(
-                        color: Colors.black,
-                      ),
-                      countryNameStyle: TextStyle(
-                        color: Colors.black,
-                      ),
+                      countryCodeStyle: TextStyle(color: Colors.black),
+                      countryNameStyle: TextStyle(color: Colors.black),
                     ),
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
+                    style: TextStyle(color: Colors.black),
                     dropdownDecoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -209,11 +209,13 @@ class _SignupFormState extends State<SignupForm> {
                       //TODO extact to separated class
                       print(value);
                       final RegExp phoneValidate = RegExp(
-                          r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$');
+                        r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$',
+                      );
                       return value != null &&
                               value.number.trim().isNotEmpty &&
-                              !phoneValidate
-                                  .hasMatch(value.completeNumber.trim())
+                              !phoneValidate.hasMatch(
+                                value.completeNumber.trim(),
+                              )
                           ? 'Invalid phone number'
                           : null;
                     },
@@ -230,13 +232,14 @@ class _SignupFormState extends State<SignupForm> {
                       onPress: () {
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(SingUpEvent(
-                                email: email,
-                                name:
-                                    NameModel(first: firstName, last: lastName),
-                                password: password,
-                                phone: phone,
-                              ));
+                          context.read<AuthBloc>().add(
+                            SingUpEvent(
+                              email: email,
+                              name: NameModel(first: firstName, last: lastName),
+                              password: password,
+                              phone: phone,
+                            ),
+                          );
                         }
                       },
                     );
@@ -265,10 +268,7 @@ class _SignupFormState extends State<SignupForm> {
                       //     CircularProgressIndicator.adaptive(
                       //   backgroundColor: Colors.white,
                       // ),
-                      Icon(
-                    FontAwesomeIcons.google,
-                    color: Colors.white,
-                  ),
+                      Icon(FontAwesomeIcons.google, color: Colors.white),
                   label: Text(
                     'Google',
                     style: TextStyle(
@@ -278,13 +278,17 @@ class _SignupFormState extends State<SignupForm> {
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(0xFFE6242E)),
-                    padding:
-                        MaterialStateProperty.all(const EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    )),
+                    backgroundColor: MaterialStateProperty.all(
+                      Color(0xFFE6242E),
+                    ),
+                    padding: MaterialStateProperty.all(
+                      const EdgeInsets.all(16),
+                    ),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -294,10 +298,7 @@ class _SignupFormState extends State<SignupForm> {
                   onPressed: () {
                     //context.read<AccountBloc>().add(LoginWithFacebookEvent());
                   },
-                  icon: Icon(
-                    FontAwesomeIcons.facebookF,
-                    color: Colors.white,
-                  ),
+                  icon: Icon(FontAwesomeIcons.facebookF, color: Colors.white),
                   label: Text(
                     'Facebook',
                     style: TextStyle(
@@ -307,36 +308,21 @@ class _SignupFormState extends State<SignupForm> {
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(0xFF4267B2)),
+                    backgroundColor: MaterialStateProperty.all(
+                      Color(0xFF4267B2),
+                    ),
                     padding: MaterialStateProperty.all(EdgeInsets.all(16)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100),
-                    )),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          TextButton(
-            onPressed: () {
-              // Navigator.of(context)
-              //     .pushReplacement(MaterialPageRoute(
-              //        settings: RouteSettings(name: '/primary'),
-              //         builder: (_) =>
-              //                 BlocProvider<SearchBloc>(
-              //                   create: (context) =>
-              //                       SearchBloc(),
-              //               child: PrimaryScreen(),
-              //             )));
-            },
-            child: Text('Continue as a visitor'),
-            style: TextButton.styleFrom(
-              splashFactory: NoSplash.splashFactory,
-            ),
-          ),
-          SizedBox(height: 20),
+          const SizedBox(height: UISpaces.lg),
           Text.rich(
             TextSpan(
               text: 'Already have an account?  ',
@@ -347,7 +333,8 @@ class _SignupFormState extends State<SignupForm> {
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
                       Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => LoginScreen()));
+                        MaterialPageRoute(builder: (_) => LoginScreen()),
+                      );
                     },
                 ),
               ],

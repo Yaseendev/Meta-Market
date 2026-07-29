@@ -28,7 +28,7 @@ class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
         final String? authToken = await userLocalDataSource.getToken();
         if (authToken == null)
           return Left(AuthTokenFailure(message: 'No Token'));
-        await authRemoteDataSource.checkToken(authToken);
+        // await authRemoteDataSource.checkToken(authToken);
         return Right(unit);
       },
     );
