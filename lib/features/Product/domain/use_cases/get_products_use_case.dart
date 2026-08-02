@@ -23,9 +23,10 @@ class GetProductsParams extends Equatable {
   final int? category;
   final String? term;
   final int? limit;
+  final String? barcode;
 
-  const GetProductsParams({this.category, this.term, this.limit});
+  const GetProductsParams({this.category, this.term, this.limit, this.barcode});
 
   @override
-  List<Object?> get props => [category, term, limit];
+  List<Object?> get props => [category, term, limit, barcode];
 }

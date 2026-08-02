@@ -1,5 +1,5 @@
 import 'failure.dart';
 
 class NoInternetConnectionFailure extends Failure {
-   NoInternetConnectionFailure({super.message});
+  const NoInternetConnectionFailure({super.message});
 }

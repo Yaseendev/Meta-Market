@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:searchfield/searchfield.dart';
+import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/features/Home/presentation/blocs/search/home_search_cubit.dart';
@@ -34,7 +36,9 @@ class HomeSearchWidget extends StatelessWidget {
           ),
         ),
         IconButton.filled(
-          onPressed: () {},
+          onPressed: () {
+            context.push('${AppRoutes.home}/${AppRoutes.scan}');
+          },
           icon: Icon(Icons.qr_code_scanner_rounded),
           padding: const EdgeInsets.all(12),
           style: IconButton.styleFrom(

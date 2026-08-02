@@ -7,10 +7,7 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SpinKitFadingGrid(
-        color: Theme.of(context).primaryColor,
-        size: 60,
-      ),
+      child: SpinKitFadingGrid(color: Theme.of(context).primaryColor, size: 55),
     );
   }
 }

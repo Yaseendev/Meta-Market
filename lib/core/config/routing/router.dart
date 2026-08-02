@@ -6,6 +6,7 @@ import 'package:supermarket/features/Auth/presentation/screens/login_screen.dart
 import 'package:supermarket/features/Cart/presentation/screens/cart_screen.dart';
 import 'package:supermarket/features/Categories/presentations/screens/categories_screen.dart';
 import 'package:supermarket/features/Dashboard/presentation/screens/dashboard_screen.dart';
+import 'package:supermarket/features/Home/presentation/screens/barcode_screen.dart';
 import 'package:supermarket/features/Home/presentation/screens/home_screen.dart';
 import 'package:supermarket/features/Onboarding/presentation/screens/splash_screen.dart';
 import 'package:supermarket/features/Settings/presentation/screens/settings_screen.dart';
@@ -37,6 +38,13 @@ final GoRouter router = GoRouter(
               name: AppRoutes.home,
               path: AppRoutes.home,
               builder: (context, state) => const HomeScreen(),
+              routes: [
+                GoRoute(
+                  name: AppRoutes.scan,
+                  path: AppRoutes.scan,
+                  builder: (context, state) => BarcodeScreen(),
+                ),
+              ],
             ),
           ],
         ),

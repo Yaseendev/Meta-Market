@@ -23,5 +23,7 @@
     "orders": "Orders",
     "deleteAccount": "Delete Account",
     "logout": "Log Out",
-    "language": "Language"
+    "language": "Language",
+    "productNotFound": "Product Not Found",
+    "barcodeScan": "Barcode Scan"
 }

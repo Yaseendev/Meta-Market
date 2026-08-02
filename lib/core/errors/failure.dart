@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 class Failure extends Equatable {
   final String message;
 
-  Failure({
+ const Failure({
     String? message = "Something Went Wrong",
   }) : this.message = message ?? 'Something Went Wrong';
 
