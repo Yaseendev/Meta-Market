@@ -12,27 +12,27 @@ final class AppTheme {
     fontFamily: FontFamily.andale,
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.symmetric(
-        horizontal: UISpaces.sm,
+        horizontal: UIMetrics.sm,
         vertical: 12,
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
         borderSide: BorderSide(color: AppColors.BORDER_COLOR),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
         borderSide: BorderSide(color: AppColors.BORDER_COLOR),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
         borderSide: BorderSide(color: AppColors.BORDER_COLOR),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
         borderSide: BorderSide(color: Colors.red),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
       ),
       errorStyle: TextStyle(color: Colors.red),
     ),
@@ -48,6 +48,22 @@ final class AppTheme {
       unselectedItemColor: Colors.black,
       unselectedLabelStyle: TextStyle(color: Colors.black),
       type: BottomNavigationBarType.fixed,
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: AppColors.PRIMARY_COLOR,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(UIMetrics.radius),
+        ),
+        padding: EdgeInsets.all(UIMetrics.sm),
+        disabledBackgroundColor: Colors.grey.shade500.withValues(alpha: .4),
+        disabledForegroundColor: Colors.grey.shade500,
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 16,
+        ),
+      ),
     ),
   );
 }

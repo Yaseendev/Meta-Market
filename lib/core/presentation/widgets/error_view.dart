@@ -11,7 +11,7 @@ class ErrorView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: UISpaces.lg,
+      spacing: UIMetrics.lg,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(message ?? LocaleKeys.errorMsg.tr(context: context)),

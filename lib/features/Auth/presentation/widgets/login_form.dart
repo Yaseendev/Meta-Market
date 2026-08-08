@@ -111,7 +111,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
               ),
             ),
-            const SizedBox(height: UISpaces.md),
+            const SizedBox(height: UIMetrics.md),
             Row(
               children: [
                 Expanded(child: Divider()),
@@ -194,7 +194,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ],
             ),
-            const SizedBox(height: UISpaces.lg),
+            const SizedBox(height: UIMetrics.lg),
             Text.rich(
               TextSpan(
                 text: 'Don\'t have an account?  ',

@@ -7,9 +7,9 @@ class SplashErrorWidget extends StatelessWidget {
   final String errorMsg;
   final VoidCallback onTryAgain;
   const SplashErrorWidget({
-  super.key,
-  required this.errorMsg,
-  required this.onTryAgain,
+    super.key,
+    required this.errorMsg,
+    required this.onTryAgain,
   });
 
   @override
@@ -25,7 +25,7 @@ class SplashErrorWidget extends StatelessWidget {
             //height: MediaQuery.of(context).size.height * .4,
           ),
         ),
-        SizedBox(height: UISpaces.sm),
+        SizedBox(height: UIMetrics.sm),
         Text(
           errorMsg,
           textAlign: TextAlign.center,
@@ -34,17 +34,14 @@ class SplashErrorWidget extends StatelessWidget {
             //fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(height: UISpaces.sm),
+        SizedBox(height: UIMetrics.sm),
         ElevatedButton(
           onPressed: onTryAgain,
           child: Text('Try Again'),
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-              horizontal: 32,
-              vertical: 12,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(UISpaces.radius),
+              borderRadius: BorderRadius.circular(UIMetrics.radius),
             ),
           ),
         ),

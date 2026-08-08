@@ -14,7 +14,7 @@ abstract class ProductRemoteDataSource {
     int? limit,
     String? barcode,
   });
-  Future<ProductResponseModel> getProduct({required int id});
+  Future<ProductResponseModel> getProduct({required String id});
 }
 
 @LazySingleton(as: ProductRemoteDataSource)
@@ -36,5 +36,5 @@ abstract class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   @override
   @GET('${Urls.PRODUCT_PATH}/{id}')
-  Future<ProductResponseModel> getProduct({@Path() required int id});
+  Future<ProductResponseModel> getProduct({@Path() required String id});
 }

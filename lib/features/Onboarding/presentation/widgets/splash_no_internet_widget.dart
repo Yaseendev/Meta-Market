@@ -21,7 +21,7 @@ class SplashNoInternetWidget extends StatelessWidget {
             //height: MediaQuery.of(context).size.height * .4,
           ),
         ),
-        SizedBox(height: UISpaces.sm),
+        SizedBox(height: UIMetrics.sm),
         Text(
           'No internet Connection',
           textAlign: TextAlign.center,
@@ -30,19 +30,16 @@ class SplashNoInternetWidget extends StatelessWidget {
             //fontWeight: FontWeight.bold
           ),
         ),
-        SizedBox(height: UISpaces.sm),
+        SizedBox(height: UIMetrics.sm),
         ElevatedButton(
           onPressed: () {
             context.read<AuthBloc>().add(CheckAuthState());
           },
           child: Text('Try Again'),
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.symmetric(
-              horizontal: 32,
-              vertical: 12,
-            ),
+            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(UISpaces.radius),
+              borderRadius: BorderRadius.circular(UIMetrics.radius),
             ),
           ),
         ),

@@ -8,4 +8,5 @@ sealed class AppRoutes {
   static const String cart = '/cart';
   static const String more = '/more';
   static const String scan = 'scan';
+  static const String product = '/product';
 }

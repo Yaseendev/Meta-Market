@@ -69,6 +69,8 @@ import 'package:supermarket/features/Home/domain/repositories/home_repository.da
     as _i84;
 import 'package:supermarket/features/Home/domain/use_cases/get_home_data_use_case.dart'
     as _i711;
+import 'package:supermarket/features/Home/presentation/blocs/barcode/barcode_cubit.dart'
+    as _i642;
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart'
     as _i265;
 import 'package:supermarket/features/Home/presentation/blocs/search/home_search_cubit.dart'
@@ -79,8 +81,12 @@ import 'package:supermarket/features/Product/data/repositories/product_repositor
     as _i623;
 import 'package:supermarket/features/Product/domain/repositories/product_repository.dart'
     as _i941;
+import 'package:supermarket/features/Product/domain/use_cases/get_product_info_use_case.dart'
+    as _i591;
 import 'package:supermarket/features/Product/domain/use_cases/get_products_use_case.dart'
     as _i80;
+import 'package:supermarket/features/Product/presentation/blocs/product/product_cubit.dart'
+    as _i157;
 import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart'
     as _i814;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
@@ -174,6 +180,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i80.GetProductsUseCase>(
       () => _i80.GetProductsUseCase(gh<_i941.ProductRepository>()),
     );
+    gh.lazySingleton<_i591.GetProductInfoUseCase>(
+      () => _i591.GetProductInfoUseCase(gh<_i941.ProductRepository>()),
+    );
     gh.factory<_i772.CartCubit>(
       () => _i772.CartCubit(
         gh<_i660.GetCartUseCase>(),
@@ -185,11 +194,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i814.ProductsCubit>(
       () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()),
     );
+    gh.factory<_i642.BarcodeCubit>(
+      () => _i642.BarcodeCubit(gh<_i80.GetProductsUseCase>()),
+    );
     gh.lazySingleton<_i711.GetHomeDataUseCase>(
       () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()),
     );
     gh.factory<_i265.HomeCubit>(
       () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()),
+    );
+    gh.factoryParam<_i157.ProductCubit, String, dynamic>(
+      (id, _) => _i157.ProductCubit(id, gh<_i591.GetProductInfoUseCase>()),
     );
     gh.factory<_i115.HomeSearchCubit>(
       () => _i115.HomeSearchCubit(gh<_i80.GetProductsUseCase>()),

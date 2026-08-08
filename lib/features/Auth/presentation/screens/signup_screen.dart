@@ -26,8 +26,8 @@ class SignupScreen extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: UISpaces.md,
-              vertical: 8,
+              horizontal: UIMetrics.md,
+              vertical: UIMetrics.xs,
             ),
             child: Column(
               children: [
@@ -47,7 +47,7 @@ class SignupScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: UISpaces.md),
+                const SizedBox(height: UIMetrics.md),
                 Expanded(child: SignupForm()),
               ],
             ),

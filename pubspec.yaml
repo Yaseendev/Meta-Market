@@ -38,6 +38,8 @@ dependencies:
   banner_carousel: ^1.2.1
   cached_network_image: ^3.4.1
   mobile_scanner: ^7.4.0
+  flutter_rating_bar: ^4.0.1
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:

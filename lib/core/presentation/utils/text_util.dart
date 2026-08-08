@@ -9,7 +9,7 @@ class TextUtil {
     // Uses IQD symbol and 0 decimal digits
     final formatter = NumberFormat.compactSimpleCurrency(
       locale: locale,
-      decimalDigits: decimalDigits ?? 0,
+      decimalDigits: decimalDigits ?? 2,
     );
     return formatter.format(amount);
   }

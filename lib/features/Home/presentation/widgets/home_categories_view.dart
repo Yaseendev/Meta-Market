@@ -12,7 +12,7 @@ class HomeCategoriesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: UISpaces.xs,
+      spacing: UIMetrics.xs,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: categories.isNotEmpty
           ? [
@@ -21,8 +21,8 @@ class HomeCategoriesView extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
               ),
               Wrap(
-                spacing: UISpaces.sm,
-                runSpacing: UISpaces.xs,
+                spacing: UIMetrics.sm,
+                runSpacing: UIMetrics.xs,
                 children: categories.map((c) => HomeCategoryCard(c)).toList(),
               ),
             ]

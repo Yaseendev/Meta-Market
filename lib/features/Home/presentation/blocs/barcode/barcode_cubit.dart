@@ -1,12 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supermarket/core/errors/product_not_found_failure.dart';
 import 'package:supermarket/core/presentation/blocs/base_states/base_state.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/features/Product/domain/use_cases/get_products_use_case.dart';
-
-part 'barcode_state.dart';
 
 @injectable
 class BarcodeCubit extends Cubit<BaseState<int>> {

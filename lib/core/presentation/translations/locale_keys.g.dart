@@ -28,5 +28,12 @@ abstract class  LocaleKeys {
   static const deleteAccount = 'deleteAccount';
   static const logout = 'logout';
   static const language = 'language';
+  static const productNotFound = 'productNotFound';
+  static const barcodeScan = 'barcodeScan';
+  static const noInternetConnection = 'noInternetConnection';
+  static const specialOffer = 'specialOffer';
+  static const description = 'description';
+  static const relatedProducts = 'relatedProducts';
+  static const addToCart = 'addToCart';
 
 }

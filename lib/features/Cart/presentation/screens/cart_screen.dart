@@ -37,7 +37,7 @@ class CartScreen extends StatelessWidget {
                   // TODO: empty cart icon
                   Text(LocaleKeys.cart1.tr(context: context)),
                   Text(LocaleKeys.cart2.tr(context: context)),
-                  const SizedBox(height: UISpaces.lg),
+                  const SizedBox(height: UIMetrics.lg),
                   ElevatedButton(
                     onPressed: () {
                       context.go(AppRoutes.home);
@@ -55,7 +55,7 @@ class CartScreen extends StatelessWidget {
                   // suptotal - delevery fees - total
                   PriceSummaryView(),
                   // checkout button
-                  const SizedBox(height: UISpaces.sm),
+                  const SizedBox(height: UIMetrics.sm),
                   ElevatedButton(
                     onPressed: () {
                       //TODO

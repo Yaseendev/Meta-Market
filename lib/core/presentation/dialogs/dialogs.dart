@@ -9,15 +9,18 @@ void showNoInternetSnackBar(BuildContext context) {
       backgroundColor: Colors.red,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 2),
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: UISpaces.md),
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: UIMetrics.md,
+      ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
       ),
       content: Row(
         children: [
           Icon(Icons.wifi_off_rounded, color: Colors.white),
           const SizedBox(width: 10),
-          Text('No Internet Connection'),
+          Text(LocaleKeys.noInternetConnection.tr(context: context)),
         ],
       ),
     ),
@@ -32,9 +35,12 @@ void showErrorSnackBar(BuildContext context, String? error) {
     SnackBar(
       backgroundColor: Colors.red,
       behavior: SnackBarBehavior.floating,
-      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: UISpaces.md),
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: UIMetrics.md,
+      ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UISpaces.radius),
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
       ),
       content: Row(
         children: [
@@ -43,6 +49,23 @@ void showErrorSnackBar(BuildContext context, String? error) {
           Flexible(child: Text(error!)),
         ],
       ),
+    ),
+  );
+}
+
+void showSuccessSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.green,
+      behavior: SnackBarBehavior.floating,
+      margin: const EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: UIMetrics.md,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(UIMetrics.radius),
+      ),
+      content: Text(message),
     ),
   );
 }

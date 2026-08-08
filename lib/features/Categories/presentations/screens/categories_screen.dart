@@ -42,8 +42,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       child: Scaffold(
         body: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: UISpaces.sm,
-            vertical: UISpaces.xs,
+            horizontal: UIMetrics.sm,
+            vertical: UIMetrics.xs,
           ),
           child: BlocBuilder<CategoriesCubit, BaseState<List<Category>>>(
             bloc: _categoriesCubit,
@@ -64,7 +64,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     : Column(
                         children: [
                           HomeSearchWidget(),
-                          const SizedBox(height: UISpaces.sm),
+                          const SizedBox(height: UIMetrics.sm),
                           BlocBuilder<ProductsCubit, BaseState<ProductsState>>(
                             builder: (context, productsState) {
                               return Row(

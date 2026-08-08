@@ -29,12 +29,12 @@ class LoginScreen extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: UISpaces.md,
+              horizontal: UIMetrics.md,
               vertical: 8,
             ),
             child: Column(
               children: [
-                const SizedBox(height: UISpaces.sm),
+                const SizedBox(height: UIMetrics.sm),
                 Column(
                   children: [
                     Image.asset(
@@ -51,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: UISpaces.lg),
+                const SizedBox(height: UIMetrics.lg),
                 Expanded(child: LoginForm()),
               ],
             ),

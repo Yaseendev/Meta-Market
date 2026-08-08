@@ -15,10 +15,10 @@ class HomeCategoryCard extends StatelessWidget {
       children: [
         Card(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UISpaces.sm),
+            borderRadius: BorderRadius.circular(UIMetrics.sm),
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(UISpaces.xs),
+            borderRadius: BorderRadius.circular(UIMetrics.xs),
             child: CachedNetworkImage(
               imageUrl: category.image ?? '',
               alignment: Alignment.center,

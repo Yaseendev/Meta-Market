@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
+import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
+import 'package:supermarket/core/services/validators.dart';
 import 'package:supermarket/features/User/data/models/name_model.dart';
-
 import '../blocs/bloc/auth_bloc.dart';
 import '../screens/login_screen.dart';
 import 'account_button.dart';
@@ -48,7 +48,7 @@ class _SignupFormState extends State<SignupForm> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
-                          hintText: 'First Name',
+                          hintText: LocaleKeys.firstName.tr(context: context),
                           prefixIcon: Icon(Icons.person_outline_rounded),
                         ),
                         keyboardType: TextInputType.name,
@@ -56,8 +56,8 @@ class _SignupFormState extends State<SignupForm> {
                         maxLines: 1,
                         onChanged: (value) => firstName = value,
                         validator: (value) {
-                          return value!.trim().isEmpty
-                              ? 'Name is required'
+                          return (value?.trim().isEmpty ?? true)
+                              ? LocaleKeys.nameRequired.tr(context: context)
                               : null;
                         },
                       ),
@@ -69,7 +69,7 @@ class _SignupFormState extends State<SignupForm> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(100),
                           ),
-                          hintText: 'Last Name',
+                          hintText: LocaleKeys.lastName.tr(context: context),
                           prefixIcon: Icon(Icons.person_outline_rounded),
                         ),
                         keyboardType: TextInputType.name,
@@ -77,8 +77,8 @@ class _SignupFormState extends State<SignupForm> {
                         maxLines: 1,
                         onChanged: (value) => lastName = value,
                         validator: (value) {
-                          return value!.trim().isEmpty
-                              ? 'Name is required'
+                          return (value?.trim().isEmpty ?? true)
+                              ? LocaleKeys.nameRequired.tr(context: context)
                               : null;
                         },
                       ),
@@ -91,7 +91,7 @@ class _SignupFormState extends State<SignupForm> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    hintText: 'E-mail',
+                    hintText: LocaleKeys.email.tr(context: context),
                     prefixIcon: Icon(Icons.email_outlined),
                   ),
                   keyboardType: TextInputType.emailAddress,
@@ -99,13 +99,7 @@ class _SignupFormState extends State<SignupForm> {
                   maxLines: 1,
                   initialValue: email,
                   onChanged: (value) => email = value,
-                  validator: (value) {
-                    return !EmailValidator.validate(
-                          value ?? '',
-                        ) //TODO extract to a sparated file
-                        ? 'Please enter a valid email'
-                        : null;
-                  },
+                  validator: Validators.emailValidator,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -113,8 +107,8 @@ class _SignupFormState extends State<SignupForm> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    hintText: 'Password',
-                    // labelText: 'Password',
+                    hintText: LocaleKeys.password.tr(context: context),
+                    labelText: LocaleKeys.password.tr(context: context),
                     prefixIcon: Icon(Icons.password),
                     suffixIcon: passwordVisible
                         ? IconButton(
@@ -134,13 +128,7 @@ class _SignupFormState extends State<SignupForm> {
                   maxLines: 1,
                   onChanged: (value) => password = value,
                   obscureText: passwordVisible,
-                  validator: (value) {
-                    return value!.trim().isNotEmpty
-                        ? value.trim().length > 6
-                              ? null
-                              : 'Password must be longer than 6 characters'
-                        : 'This field is required';
-                  },
+                  validator: Validators.passwordValidator,
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
@@ -148,8 +136,8 @@ class _SignupFormState extends State<SignupForm> {
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    hintText: 'Confirm Password',
-                    labelText: 'Confirm Password',
+                    hintText: LocaleKeys.confirmPassword.tr(context: context),
+                    labelText: LocaleKeys.confirmPassword.tr(context: context),
                     prefixIcon: const Icon(Icons.password),
                     suffixIcon: passwordVisible
                         ? IconButton(
@@ -168,20 +156,17 @@ class _SignupFormState extends State<SignupForm> {
                   keyboardType: TextInputType.visiblePassword,
                   maxLines: 1,
                   obscureText: passwordVisible,
-                  validator: (value) {
-                    return value!.trim().isNotEmpty
-                        ? value == password
-                              ? null
-                              : 'Passwords must be identical'
-                        : 'This field is required';
-                  },
+                  validator: (value) =>
+                      Validators.confirmPasswordValidator(value, password),
                 ),
                 const SizedBox(height: 20),
                 Directionality(
                   textDirection: TextDirection.ltr,
                   child: IntlPhoneField(
                     dropdownTextStyle: TextStyle(color: Colors.black),
-                    invalidNumberMessage: 'Invalid Number',
+                    invalidNumberMessage: LocaleKeys.invalidNumber.tr(
+                      context: context,
+                    ),
                     autovalidateMode: AutovalidateMode.disabled,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -189,9 +174,11 @@ class _SignupFormState extends State<SignupForm> {
                           Radius.circular(100),
                         ),
                       ),
-                      hintText: 'Phone Number',
+                      hintText: LocaleKeys.phoneNumber.tr(context: context),
                       prefixIcon: const Icon(Icons.phone),
-                      errorText: _validate ? null : 'Invalid phone number',
+                      errorText: _validate
+                          ? null
+                          : LocaleKeys.invalidPhoneNumber.tr(context: context),
                     ),
                     pickerDialogStyle: PickerDialogStyle(
                       countryCodeStyle: TextStyle(color: Colors.black),
@@ -206,18 +193,7 @@ class _SignupFormState extends State<SignupForm> {
                     keyboardType: TextInputType.phone,
                     onChanged: (value) => phone = value.completeNumber.trim(),
                     validator: (value) {
-                      //TODO extact to separated class
-                      print(value);
-                      final RegExp phoneValidate = RegExp(
-                        r'^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$',
-                      );
-                      return value != null &&
-                              value.number.trim().isNotEmpty &&
-                              !phoneValidate.hasMatch(
-                                value.completeNumber.trim(),
-                              )
-                          ? 'Invalid phone number'
-                          : null;
+                      return Validators.phoneNumberValidator(value);
                     },
                   ),
                 ),
@@ -228,7 +204,7 @@ class _SignupFormState extends State<SignupForm> {
                       buttonState: state is AuthLoading
                           ? ButtonState.loading
                           : ButtonState.idle,
-                      label: 'Sign Up',
+                      label: LocaleKeys.signUp.tr(context: context),
                       onPress: () {
                         FocusScope.of(context).unfocus();
                         if (_formKey.currentState!.validate()) {
@@ -252,7 +228,7 @@ class _SignupFormState extends State<SignupForm> {
           Row(
             children: [
               Expanded(child: Divider()),
-              Text('  Or Continue With  '),
+              Text('  ${LocaleKeys.orContinueWith.tr(context: context)}  '),
               Expanded(child: Divider()),
             ],
           ),
@@ -322,13 +298,13 @@ class _SignupFormState extends State<SignupForm> {
               ),
             ],
           ),
-          const SizedBox(height: UISpaces.lg),
+          const SizedBox(height: UIMetrics.lg),
           Text.rich(
             TextSpan(
-              text: 'Already have an account?  ',
+              text: '${LocaleKeys.haveAccount.tr(context: context)}  ',
               children: [
                 TextSpan(
-                  text: 'Sign In',
+                  text: LocaleKeys.signIn.tr(context: context),
                   style: TextStyle(color: Theme.of(context).primaryColor),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

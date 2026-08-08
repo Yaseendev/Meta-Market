@@ -24,6 +24,7 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
     int? categoryId,
     String? keyword,
     int? limit,
+    String? barcode,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -33,6 +34,7 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
       'category_id': categoryId,
       'keyword': keyword,
       'size': limit,
+      'barcode': barcode,
     };
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<ProductsResponseModel>(
@@ -49,6 +51,33 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
     late ProductsResponseModel _value;
     try {
       _value = ProductsResponseModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ProductResponseModel> getProduct({required String id}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ProductResponseModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/products/${id}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ProductResponseModel _value;
+    try {
+      _value = ProductResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, _result);
       rethrow;

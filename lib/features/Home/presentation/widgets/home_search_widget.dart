@@ -15,7 +15,7 @@ class HomeSearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: UISpaces.xs,
+      spacing: UIMetrics.xs,
       children: [
         Expanded(
           child: SearchField<Product>(
@@ -43,7 +43,7 @@ class HomeSearchWidget extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           style: IconButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(UISpaces.radius),
+              borderRadius: BorderRadius.circular(UIMetrics.radius),
             ),
           ),
         ),

@@ -16,7 +16,7 @@ class PriceSummaryView extends StatelessWidget {
     return BlocBuilder<CartCubit, BaseState<CartState>>(
       builder: (context, state) {
         return Column(
-          spacing: UISpaces.xs,
+          spacing: UIMetrics.xs,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
