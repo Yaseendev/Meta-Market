@@ -13,4 +13,9 @@ class TextUtil {
     );
     return formatter.format(amount);
   }
+
+  static String formatDate(DateTime date, [String? locale]) {
+    final formatter = DateFormat.yMMMd(locale).add_jm();
+    return formatter.format(date);
+  }
 }

@@ -15,6 +15,7 @@ import 'package:supermarket/features/Dashboard/presentation/screens/dashboard_sc
 import 'package:supermarket/features/Home/presentation/screens/barcode_screen.dart';
 import 'package:supermarket/features/Home/presentation/screens/home_screen.dart';
 import 'package:supermarket/features/Onboarding/presentation/screens/splash_screen.dart';
+import 'package:supermarket/features/Orders/presentation/screens/orders_screen.dart';
 import 'package:supermarket/features/Product/presentation/blocs/product/product_cubit.dart';
 import 'package:supermarket/features/Product/presentation/screens/product_screen.dart';
 import 'package:supermarket/features/Settings/presentation/screens/settings_screen.dart';
@@ -126,6 +127,11 @@ final GoRouter router = GoRouter(
           builder: (context, state) => AddressScreen(),
         ),
       ],
+    ),
+    GoRoute(
+      name: AppRoutes.orders,
+      path: AppRoutes.orders,
+      builder: (context, state) => OrdersScreen(),
     ),
   ],
 );

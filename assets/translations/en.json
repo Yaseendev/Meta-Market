@@ -71,5 +71,11 @@
     "noAddresses": "No Addresses",
     "addressAdded": "Address has been added",
     "addressUpdated": "Address has been updated",
-    "fillRequired": "Please fill all the required fields"
+    "fillRequired": "Please fill all the required fields",
+    "myOrders": "My Orders",
+    "noOrders": "No Orders",
+    "pending": "Pending",
+    "completed": "Completed",
+    "processing": "Processing",
+    "cancelled": "Cancelled"
 }

@@ -66,13 +66,13 @@ class AddressesBloc extends Bloc<AddressesEvent, BaseState<List<Address>>> {
       }
     });
 
-    on<AddAddress>((event, emit) async {
+    on<AddAddress>((event, emit) {
       final addresses = List<Address>.of(state.item ?? []);
       addresses.add(event.address);
       emit(state.setSuccessState(addresses));
     });
 
-    on<UpdateAddress>((event, emit) async {
+    on<UpdateAddress>((event, emit) {
       final newAddress = event.address;
       final newAddresses = _modifyAddress(newAddress);
       emit(state.setSuccessState(newAddresses));

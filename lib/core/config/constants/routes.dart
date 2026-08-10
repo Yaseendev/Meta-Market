@@ -11,4 +11,5 @@ sealed class AppRoutes {
   static const String product = '/product';
   static const String addresses = '/addresses';
   static const String address = 'address';
+  static const String orders = '/orders';
 }

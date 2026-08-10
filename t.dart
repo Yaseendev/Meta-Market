@@ -1,21 +1,12 @@
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
-// void main() {
-//   print(TextUtil.formatCurrency(150));
-// }
+void main() {
+  print(TextUtil.formatDate(DateTime.now()));
+}
 
-// class TextUtil {
-//   static String formatCurrency(
-//     num amount, {
-//     String? locale,
-//     int? decimalDigits,
-//   }) {
-//     // Uses IQD symbol and 0 decimal digits
-//     final formatter = NumberFormat.compactSimpleCurrency(
-//       locale: locale,
-//       // symbol: locale == 'en' ? 'IQD' : 'دينار',
-//       decimalDigits: decimalDigits ?? 0,
-//     );
-//     return formatter.format(amount);
-//   }
-// }
+class TextUtil {
+  static String formatDate(DateTime date) {
+    final formatter = DateFormat.yMMMd().add_jm();
+    return formatter.format(date);
+  }
+}

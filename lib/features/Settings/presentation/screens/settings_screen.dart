@@ -61,7 +61,9 @@ class SettingsScreen extends StatelessWidget {
                 SettingsTile(
                   icon: Icons.table_view_rounded,
                   title: LocaleKeys.orders.tr(context: context),
-                  onTap: () {},
+                  onTap: () {
+                    context.push(AppRoutes.orders);
+                  },
                 ),
                 SettingsTile(
                   icon: Icons.language,

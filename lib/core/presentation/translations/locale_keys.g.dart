@@ -76,5 +76,11 @@ abstract class  LocaleKeys {
   static const addressAdded = 'addressAdded';
   static const addressUpdated = 'addressUpdated';
   static const fillRequired = 'fillRequired';
+  static const myOrders = 'myOrders';
+  static const noOrders = 'noOrders';
+  static const pending = 'pending';
+  static const completed = 'completed';
+  static const processing = 'processing';
+  static const cancelled = 'cancelled';
 
 }
