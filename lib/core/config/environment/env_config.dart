@@ -10,4 +10,5 @@ class EnvironmentConfig {
   
   //URLs
   static String get baseUrl => getValue('BASE_URL');
+  static String get mapBoxAccessToken => getValue('MAPBOX_ACCESS_TOKEN');
 }

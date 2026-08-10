@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:intl_phone_field/phone_number.dart' show PhoneNumber;
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
@@ -33,6 +34,12 @@ final class Validators {
             value.number.trim().isNotEmpty &&
             !phoneValidate.hasMatch(value.completeNumber.trim())
         ? LocaleKeys.invalidPhoneNumber.tr()
+        : null;
+  }
+
+  static String? requiredValidator(String? value) {
+    return (value?.trim().isEmpty ?? true)
+        ? LocaleKeys.fieldRequired.tr()
         : null;
   }
 }

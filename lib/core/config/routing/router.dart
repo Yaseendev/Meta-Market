@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/core/presentation/animations/page_route_animations.dart';
+import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart';
+import 'package:supermarket/features/Address/presentation/screens/address_screen.dart';
+import 'package:supermarket/features/Address/presentation/screens/addresses_screen.dart';
 import 'package:supermarket/features/Auth/presentation/screens/login_screen.dart';
 import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
 import 'package:supermarket/features/Cart/presentation/screens/cart_screen.dart';
@@ -108,6 +111,21 @@ final GoRouter router = GoRouter(
       name: AppRoutes.profile,
       path: AppRoutes.profile,
       builder: (context, state) => ProfileScreen(),
+    ),
+    GoRoute(
+      name: AppRoutes.addresses,
+      path: AppRoutes.addresses,
+      builder: (context, state) => BlocProvider<AddressesBloc>.value(
+        value: state.extra as AddressesBloc,
+        child: AddressesScreen(),
+      ),
+      routes: [
+        GoRoute(
+          name: AppRoutes.address,
+          path: AppRoutes.address,
+          builder: (context, state) => AddressScreen(),
+        ),
+      ],
     ),
   ],
 );

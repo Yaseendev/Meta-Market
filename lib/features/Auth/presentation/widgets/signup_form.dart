@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart' as e;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

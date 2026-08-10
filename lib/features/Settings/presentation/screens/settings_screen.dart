@@ -8,6 +8,7 @@ import 'package:supermarket/core/presentation/blocs/base_states/base_state.dart'
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
+import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart';
 import 'package:supermarket/features/Settings/presentation/widgets/settings_tile.dart';
 import 'package:supermarket/features/User/presentation/blocs/delete_profile/delete_profile_cubit.dart';
 import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
@@ -29,10 +30,14 @@ class SettingsScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: ListView(
+          padding: EdgeInsets.symmetric(
+            horizontal: UIMetrics.sm,
+            vertical: UIMetrics.md,
+          ),
           children: [
             const SizedBox(height: UIMetrics.md),
-            Assets.images.logoTransparentText.image(),
-            const SizedBox(height: UIMetrics.md),
+            Assets.images.logoTransparentText.image(height: 250, width: 200),
+            const SizedBox(height: UIMetrics.xs),
             ...ListTile.divideTiles(
               context: context,
               tiles: [
@@ -46,7 +51,12 @@ class SettingsScreen extends StatelessWidget {
                 SettingsTile(
                   icon: Icons.person_pin,
                   title: LocaleKeys.addresses.tr(context: context),
-                  onTap: () {},
+                  onTap: () {
+                    context.push(
+                      AppRoutes.addresses,
+                      extra: context.read<AddressesBloc>(),
+                    );
+                  },
                 ),
                 SettingsTile(
                   icon: Icons.table_view_rounded,

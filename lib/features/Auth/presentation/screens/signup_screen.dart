@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supermarket/core/config/constants/images.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/dialogs/dialogs.dart';
+import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import '../blocs/bloc/auth_bloc.dart';
 import '../widgets/signup_form.dart';
 
@@ -39,7 +41,7 @@ class SignupScreen extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                     Text(
-                      'Welcome to Meta Market',
+                      LocaleKeys.welcome.tr(context: context),
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

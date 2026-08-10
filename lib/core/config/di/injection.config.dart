@@ -19,6 +19,24 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supermarket/core/config/di/injectable_module.dart' as _i906;
 import 'package:supermarket/core/data/network/auth_interceptor.dart' as _i402;
 import 'package:supermarket/core/services/connection_checker.dart' as _i369;
+import 'package:supermarket/features/Address/data/data_sources/remote/address_remote_data_source.dart'
+    as _i196;
+import 'package:supermarket/features/Address/data/repositories/address_repository_impl.dart'
+    as _i543;
+import 'package:supermarket/features/Address/domain/repositories/address_repository.dart'
+    as _i932;
+import 'package:supermarket/features/Address/domain/use_cases/add_address_use_case.dart'
+    as _i317;
+import 'package:supermarket/features/Address/domain/use_cases/delete_address_use_case.dart'
+    as _i381;
+import 'package:supermarket/features/Address/domain/use_cases/get_addresses_use_case.dart'
+    as _i503;
+import 'package:supermarket/features/Address/domain/use_cases/update_address_use_case.dart'
+    as _i1069;
+import 'package:supermarket/features/Address/presentation/blocs/address/address_cubit.dart'
+    as _i784;
+import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart'
+    as _i476;
 import 'package:supermarket/features/Auth/data/datasources/auth_remote_datasource.dart'
     as _i636;
 import 'package:supermarket/features/Auth/data/repositories/auth_repository_impl.dart'
@@ -91,6 +109,26 @@ import 'package:supermarket/features/Product/presentation/blocs/products_cubit/p
     as _i814;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
     as _i744;
+import 'package:supermarket/features/User/data/datasources/user_remote_datasource.dart'
+    as _i178;
+import 'package:supermarket/features/User/data/repositories/user_repository_impl.dart'
+    as _i438;
+import 'package:supermarket/features/User/domain/entities/app_user.dart'
+    as _i614;
+import 'package:supermarket/features/User/domain/repositories/user_repository.dart'
+    as _i768;
+import 'package:supermarket/features/User/domain/usecases/delete_user_use_case.dart'
+    as _i521;
+import 'package:supermarket/features/User/domain/usecases/edit_user_profile_use_case.dart'
+    as _i567;
+import 'package:supermarket/features/User/domain/usecases/get_user_profile_use_case.dart'
+    as _i257;
+import 'package:supermarket/features/User/presentation/blocs/delete_profile/delete_profile_cubit.dart'
+    as _i753;
+import 'package:supermarket/features/User/presentation/blocs/edit_profile/edit_profile_cubit.dart'
+    as _i984;
+import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart'
+    as _i921;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -116,6 +154,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i652.CartRemoteDataSource>(
       () => _i652.CartRemoteDataSourceImpl.new(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i196.AddressRemoteDataSource>(
+      () => _i196.AddressRemoteDataSourceImpl.new(gh<_i361.Dio>()),
+    );
     gh.lazySingleton<_i584.ProductRemoteDataSource>(
       () => _i584.ProductRemoteDataSourceImpl.new(gh<_i361.Dio>()),
     );
@@ -134,6 +175,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i741.CategoryRepository>(
       () =>
           _i502.CategoryRepositoryImpl(gh<_i513.CategoriesRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i178.UserRemoteDataSource>(
+      () => _i178.UserRemoteDataSourceImpl.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i1037.HomeRemoteDataSource>(
       () => _i1037.HomeRemoteDataSourceImpl.new(gh<_i361.Dio>()),
@@ -156,6 +200,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i402.AuthInterceptor>(
       () => _i402.AuthInterceptor(gh<_i744.UserLocalDataSource>()),
     );
+    gh.lazySingleton<_i932.AddressRepository>(
+      () => _i543.AddressRepositoryImpl(gh<_i196.AddressRemoteDataSource>()),
+    );
     gh.lazySingleton<_i818.RemoveItemUseCase>(
       () => _i818.RemoveItemUseCase(gh<_i671.CartRepository>()),
     );
@@ -171,17 +218,47 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i84.HomeRepository>(
       () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()),
     );
+    gh.lazySingleton<_i503.GetAddressesUseCase>(
+      () => _i503.GetAddressesUseCase(gh<_i932.AddressRepository>()),
+    );
+    gh.lazySingleton<_i381.DeleteAddressUseCase>(
+      () => _i381.DeleteAddressUseCase(gh<_i932.AddressRepository>()),
+    );
+    gh.lazySingleton<_i768.UserRepository>(
+      () => _i438.UserRepositoryImpl(
+        gh<_i744.UserLocalDataSource>(),
+        gh<_i178.UserRemoteDataSource>(),
+      ),
+    );
     gh.lazySingleton<_i900.AuthRepository>(
       () => _i799.AuthRepositoryImpl(
         userLocalDataSource: gh<_i744.UserLocalDataSource>(),
         authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
       ),
     );
+    gh.lazySingleton<_i257.GetUserProfileUseCase>(
+      () => _i257.GetUserProfileUseCase(gh<_i768.UserRepository>()),
+    );
+    gh.lazySingleton<_i567.EditUserProfileUseCase>(
+      () => _i567.EditUserProfileUseCase(gh<_i768.UserRepository>()),
+    );
+    gh.lazySingleton<_i521.DeleteUserUseCase>(
+      () => _i521.DeleteUserUseCase(gh<_i768.UserRepository>()),
+    );
+    gh.factory<_i753.DeleteProfileCubit>(
+      () => _i753.DeleteProfileCubit(gh<_i521.DeleteUserUseCase>()),
+    );
     gh.lazySingleton<_i80.GetProductsUseCase>(
       () => _i80.GetProductsUseCase(gh<_i941.ProductRepository>()),
     );
     gh.lazySingleton<_i591.GetProductInfoUseCase>(
       () => _i591.GetProductInfoUseCase(gh<_i941.ProductRepository>()),
+    );
+    gh.lazySingleton<_i1069.UpdateAddressUseCase>(
+      () => _i1069.UpdateAddressUseCase(gh<_i932.AddressRepository>()),
+    );
+    gh.lazySingleton<_i317.AddAddressUseCase>(
+      () => _i317.AddAddressUseCase(gh<_i932.AddressRepository>()),
     );
     gh.factory<_i772.CartCubit>(
       () => _i772.CartCubit(
@@ -191,14 +268,34 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i818.RemoveItemUseCase>(),
       ),
     );
+    gh.factory<_i476.AddressesBloc>(
+      () => _i476.AddressesBloc(
+        gh<_i503.GetAddressesUseCase>(),
+        gh<_i1069.UpdateAddressUseCase>(),
+        gh<_i381.DeleteAddressUseCase>(),
+      ),
+    );
     gh.factory<_i814.ProductsCubit>(
       () => _i814.ProductsCubit(gh<_i80.GetProductsUseCase>()),
+    );
+    gh.factory<_i784.AddressCubit>(
+      () => _i784.AddressCubit(
+        gh<_i317.AddAddressUseCase>(),
+        gh<_i1069.UpdateAddressUseCase>(),
+      ),
     );
     gh.factory<_i642.BarcodeCubit>(
       () => _i642.BarcodeCubit(gh<_i80.GetProductsUseCase>()),
     );
+    gh.lazySingleton<_i921.ProfileCubit>(
+      () => _i921.ProfileCubit(gh<_i257.GetUserProfileUseCase>()),
+    );
     gh.lazySingleton<_i711.GetHomeDataUseCase>(
       () => _i711.GetHomeDataUseCase(gh<_i84.HomeRepository>()),
+    );
+    gh.factoryParam<_i984.EditProfileCubit, _i614.AppUser, dynamic>(
+      (profile, _) =>
+          _i984.EditProfileCubit(profile, gh<_i567.EditUserProfileUseCase>()),
     );
     gh.factory<_i265.HomeCubit>(
       () => _i265.HomeCubit(gh<_i711.GetHomeDataUseCase>()),
