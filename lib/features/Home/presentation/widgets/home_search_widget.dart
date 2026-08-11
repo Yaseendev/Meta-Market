@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
+import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
 import 'package:supermarket/features/Home/presentation/blocs/search/home_search_cubit.dart';
 import 'package:supermarket/features/Product/domain/entities/product.dart';
 
@@ -32,7 +34,16 @@ class HomeSearchWidget extends StatelessWidget {
                   .map((p) => SearchFieldListItem<Product>(p.name, item: p))
                   .toList();
             },
-            onSuggestionTap: (_) {},
+            onSuggestionTap: (result) {
+              context.pushNamed(
+                AppRoutes.product,
+                pathParameters: {'id': '${result.item?.id}'},
+                extra: {
+                  'name': result.item?.name,
+                  'cart': context.read<CartCubit>(),
+                },
+              );
+            },
           ),
         ),
         IconButton.filled(

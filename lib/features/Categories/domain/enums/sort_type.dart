@@ -1,0 +1,1 @@
+enum SortType { RELEVANCE,PRICE_ASC, PRICE_DESC }

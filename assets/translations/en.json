@@ -81,5 +81,15 @@
     "en": "English",
     "ar": "العربية",
     "deleteAccountMsg": "Are you sure you want to delete your account?",
-    "logoutMsg": "Are you sure you want to Log Out?"
+    "logoutMsg": "Are you sure you want to Log Out?",
+    "search": "Search",
+    "price_asc": "Price (lowest first)",
+    "price_desc": "Price (highest first)",
+    "deals": "Deals",
+    "specialOffers": "Special Offers",
+    "price": "Price",
+    "sortBy": "Sort By",
+    "relevance": "Relevance",
+    "clearAll": "Clear All",
+    "apply": "Apply"
 }

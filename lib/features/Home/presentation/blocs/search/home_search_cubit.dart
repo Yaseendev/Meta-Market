@@ -16,7 +16,7 @@ class HomeSearchCubit extends Cubit<List<Product>> {
       final result = await _searchProductsUseCase(
         GetProductsParams(term: term),
       );
-      final res = result.getOrElse(() => []);
+      final res = result.fold((_) => <Product>[],(data) => data.products);
       emit(res);
     } else {
       emit([]);

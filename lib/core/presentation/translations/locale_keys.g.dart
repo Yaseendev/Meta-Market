@@ -84,5 +84,17 @@ abstract class  LocaleKeys {
   static const cancelled = 'cancelled';
   static const en = 'en';
   static const ar = 'ar';
+  static const deleteAccountMsg = 'deleteAccountMsg';
+  static const logoutMsg = 'logoutMsg';
+  static const search = 'search';
+  static const price_asc = 'price_asc';
+  static const price_desc = 'price_desc';
+  static const deals = 'deals';
+  static const specialOffers = 'specialOffers';
+  static const price = 'price';
+  static const sortBy = 'sortBy';
+  static const relevance = 'relevance';
+  static const clearAll = 'clearAll';
+  static const apply = 'apply';
 
 }

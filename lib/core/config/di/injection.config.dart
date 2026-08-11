@@ -37,8 +37,10 @@ import 'package:supermarket/features/Address/presentation/blocs/address/address_
     as _i784;
 import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart'
     as _i476;
+import 'package:supermarket/features/Auth/data/datasources/local/auth_local_data_source.dart'
+    as _i663;
 import 'package:supermarket/features/Auth/data/datasources/remote/auth_remote_datasource.dart'
-    as _i636;
+    as _i381;
 import 'package:supermarket/features/Auth/data/repositories/auth_repository_impl.dart'
     as _i799;
 import 'package:supermarket/features/Auth/domain/repositories/auth_repository.dart'
@@ -47,6 +49,8 @@ import 'package:supermarket/features/Auth/domain/use_cases/check_app_state_use_c
     as _i814;
 import 'package:supermarket/features/Auth/domain/use_cases/google_auth_use_case.dart'
     as _i398;
+import 'package:supermarket/features/Auth/domain/use_cases/log_out_use_case.dart'
+    as _i615;
 import 'package:supermarket/features/Auth/domain/use_cases/login_use_case.dart'
     as _i468;
 import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart'
@@ -193,8 +197,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i671.CartRepository>(
       () => _i927.CartRepositoryImpl(gh<_i652.CartRemoteDataSource>()),
     );
-    gh.lazySingleton<_i744.UserLocalDataSource>(
-      () => _i744.UserLocalDataSourceImpl(
+    gh.lazySingleton<_i663.AuthLocalDataSource>(
+      () => _i663.AuthLocalDataSourceImpl(
         gh<_i558.FlutterSecureStorage>(),
         gh<_i460.SharedPreferences>(),
       ),
@@ -206,11 +210,17 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i502.CategoryRepositoryImpl(gh<_i513.CategoriesRemoteDataSource>()),
     );
+    gh.lazySingleton<_i402.AuthInterceptor>(
+      () => _i402.AuthInterceptor(gh<_i663.AuthLocalDataSource>()),
+    );
     gh.lazySingleton<_i178.UserRemoteDataSource>(
       () => _i178.UserRemoteDataSourceImpl.new(gh<_i361.Dio>()),
     );
     gh.lazySingleton<_i120.OrderRepository>(
       () => _i1006.OrderRepositoryImpl(gh<_i274.OrdersRemoteDataSource>()),
+    );
+    gh.lazySingleton<_i744.UserLocalDataSource>(
+      () => _i744.UserLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
     );
     gh.lazySingleton<_i1037.HomeRemoteDataSource>(
       () => _i1037.HomeRemoteDataSourceImpl.new(gh<_i361.Dio>()),
@@ -218,8 +228,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i369.ConnectionChecker>(
       () => _i369.ConnectionCheckerConnectivity(gh<_i895.Connectivity>()),
     );
-    gh.lazySingleton<_i636.AuthRemoteDataSource>(
-      () => _i636.AuthRemoteDataSourceImpl(
+    gh.lazySingleton<_i381.AuthRemoteDataSource>(
+      () => _i381.AuthRemoteDataSourceImpl(
         dioClient: gh<_i361.Dio>(),
         googleSignIn: gh<_i116.GoogleSignIn>(),
       ),
@@ -238,9 +248,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i347.GetCategoriesUseCase>(
       () => _i347.GetCategoriesUseCase(gh<_i741.CategoryRepository>()),
-    );
-    gh.lazySingleton<_i402.AuthInterceptor>(
-      () => _i402.AuthInterceptor(gh<_i744.UserLocalDataSource>()),
     );
     gh.lazySingleton<_i932.AddressRepository>(
       () => _i543.AddressRepositoryImpl(gh<_i196.AddressRemoteDataSource>()),
@@ -287,9 +294,26 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i900.AuthRepository>(
       () => _i799.AuthRepositoryImpl(
-        userLocalDataSource: gh<_i744.UserLocalDataSource>(),
-        authRemoteDataSource: gh<_i636.AuthRemoteDataSource>(),
+        authLocalDataSource: gh<_i663.AuthLocalDataSource>(),
+        authRemoteDataSource: gh<_i381.AuthRemoteDataSource>(),
       ),
+    );
+    gh.lazySingleton<_i815.SignupUseCase>(
+      () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i468.LoginUseCase>(
+      () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i398.GoogleAuthUseCase>(
+      () => _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()),
+    );
+    gh.lazySingleton<_i814.CheckAppStateUseCase>(
+      () => _i814.CheckAppStateUseCase(
+        authRepository: gh<_i900.AuthRepository>(),
+      ),
+    );
+    gh.lazySingleton<_i615.LogOutUseCase>(
+      () => _i615.LogOutUseCase(gh<_i900.AuthRepository>()),
     );
     gh.factory<_i466.OrdersCubit>(
       () => _i466.OrdersCubit(gh<_i614.GetOrdersUseCase>()),
@@ -364,26 +388,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i115.HomeSearchCubit>(
       () => _i115.HomeSearchCubit(gh<_i80.GetProductsUseCase>()),
     );
-    gh.lazySingleton<_i815.SignupUseCase>(
-      () => _i815.SignupUseCase(authRepository: gh<_i900.AuthRepository>()),
-    );
-    gh.lazySingleton<_i468.LoginUseCase>(
-      () => _i468.LoginUseCase(authRepository: gh<_i900.AuthRepository>()),
-    );
-    gh.lazySingleton<_i398.GoogleAuthUseCase>(
-      () => _i398.GoogleAuthUseCase(authRepository: gh<_i900.AuthRepository>()),
-    );
-    gh.lazySingleton<_i814.CheckAppStateUseCase>(
-      () => _i814.CheckAppStateUseCase(
-        authRepository: gh<_i900.AuthRepository>(),
-      ),
-    );
     gh.factory<_i400.AuthBloc>(
       () => _i400.AuthBloc(
         gh<_i468.LoginUseCase>(),
         gh<_i815.SignupUseCase>(),
         gh<_i398.GoogleAuthUseCase>(),
         gh<_i814.CheckAppStateUseCase>(),
+        gh<_i615.LogOutUseCase>(),
       ),
     );
     return this;

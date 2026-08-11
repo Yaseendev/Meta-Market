@@ -25,6 +25,11 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
     String? keyword,
     int? limit,
     String? barcode,
+    int? page,
+    bool? isDeal,
+    double? minPrice,
+    double? maxPrice,
+    String? sort,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -35,6 +40,11 @@ class _ProductRemoteDataSourceImpl implements ProductRemoteDataSourceImpl {
       'keyword': keyword,
       'size': limit,
       'barcode': barcode,
+      'page': page,
+      'is_deal': isDeal,
+      'min_price': minPrice,
+      'max_price': maxPrice,
+      'sort': sort,
     };
     _data.removeWhere((k, v) => v == null);
     final _options = _setStreamType<ProductsResponseModel>(

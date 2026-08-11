@@ -19,14 +19,12 @@ class ProductCard extends StatelessWidget {
         context.pushNamed(
           AppRoutes.product,
           pathParameters: {'id': '${product.id}'},
-          extra: {'name': product.name,
-          'cart': context.read<CartCubit>(),
-          },
+          extra: {'name': product.name, 'cart': context.read<CartCubit>()},
         );
       },
       child: SizedBox(
         height: 200,
-        width: 120,
+        width: 140,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(UIMetrics.sm),

@@ -10,7 +10,7 @@ import 'package:supermarket/core/presentation/widgets/loading_widget.dart';
 import 'package:supermarket/features/Categories/domain/entities/category.dart';
 import 'package:supermarket/features/Categories/presentations/blocs/categories_cubit/categories_cubit.dart';
 import 'package:supermarket/features/Categories/presentations/widgets/categories_view.dart';
-import 'package:supermarket/features/Home/presentation/widgets/home_search_widget.dart';
+import 'package:supermarket/features/Categories/presentations/widgets/products_search_widget.dart';
 import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart';
 import 'package:supermarket/features/Product/presentation/widgets/products_view.dart';
 
@@ -34,6 +34,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CategoriesCubit, BaseState<List<Category>>>(
+      bloc: _categoriesCubit,
       listener: (context, state) {
         if (state.isSuccess) {
           _productsCubit.getProducts();
@@ -61,47 +62,95 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     ? Center(
                         child: Text(LocaleKeys.noData.tr(context: context)),
                       )
-                    : Column(
-                        children: [
-                          HomeSearchWidget(),
-                          const SizedBox(height: UIMetrics.sm),
-                          BlocBuilder<ProductsCubit, BaseState<ProductsState>>(
-                            builder: (context, productsState) {
-                              return Row(
-                                children: [
-                                  CategoriesView(
-                                    data,
-                                    selectedCategoryId:
-                                        productsState.item?.selectedCategory ??
-                                        0,
-                                    onSelected: (c) => _productsCubit
-                                        .getProducts(categoryId: c),
-                                  ),
-                                  Expanded(
-                                    child: switch (state.status) {
-                                      BaseStatus.failure => ErrorView(
-                                        message: state.failure?.message,
-                                        onRetry: () =>
-                                            _productsCubit.getProducts(
-                                              categoryId: productsState
-                                                  .item
-                                                  ?.selectedCategory,
-                                            ),
+                    : SafeArea(
+                        child: Column(
+                          children: [
+                            BlocBuilder<
+                              ProductsCubit,
+                              BaseState<ProductsState>
+                            >(
+                              bloc: _productsCubit,
+                              builder: (context, productsState) {
+                                return ProductsSearchWidget(
+                                  onType: (value) {
+                                    _productsCubit.getProducts(
+                                      searchTerm: value.trim(),
+                                    );
+                                  },
+                                  state: productsState.item,
+                                  onFilterApply: (value) {
+                                    _productsCubit.getProducts(
+                                      filterOptions: value,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(height: UIMetrics.sm),
+                            Expanded(
+                              child: BlocBuilder<ProductsCubit, BaseState<ProductsState>>(
+                                bloc: _productsCubit,
+                                builder: (context, productsState) {
+                                  return Row(
+                                    children: [
+                                      CategoriesView(
+                                        data,
+                                        selectedCategoryId:
+                                            productsState
+                                                .item
+                                                ?.selectedCategory ??
+                                            0,
+                                        onSelected: (c) => _productsCubit
+                                            .getProducts(categoryId: c),
                                       ),
-                                      BaseStatus.loading =>
-                                        const LoadingWidget(),
-                                      BaseStatus.success => ProductsView(
-                                        products:
-                                            productsState.item?.products ?? [],
+                                      Expanded(
+                                        child:
+                                            productsState.item?.products == null
+                                            ? switch (productsState.status) {
+                                                BaseStatus.failure => ErrorView(
+                                                  message: productsState
+                                                      .failure
+                                                      ?.message,
+                                                  onRetry: () => _productsCubit
+                                                      .getProducts(
+                                                        categoryId: productsState
+                                                            .item
+                                                            ?.selectedCategory,
+                                                      ),
+                                                ),
+                                                BaseStatus.loading =>
+                                                  const LoadingWidget(),
+                                                BaseStatus.success =>
+                                                  ProductsView(
+                                                    products:
+                                                        productsState
+                                                            .item
+                                                            ?.products ??
+                                                        [],
+                                                  ),
+                                                _ => const SizedBox.shrink(),
+                                              }
+                                            : ProductsView(
+                                                products:
+                                                    productsState
+                                                        .item
+                                                        ?.products ??
+                                                    [],
+                                                onLoadMore: () {
+                                                  _productsCubit
+                                                      .getNextProducts();
+                                                },
+                                                isLoading:
+                                                    productsState.isLoading,
+                                              ),
                                       ),
-                                      _ => const SizedBox.shrink(),
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       );
               }
             },

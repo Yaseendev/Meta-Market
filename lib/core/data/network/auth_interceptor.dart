@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart';
+import 'package:supermarket/features/Auth/data/datasources/local/auth_local_data_source.dart';
 
 @lazySingleton
 class AuthInterceptor extends Interceptor {
-  final UserLocalDataSource _authLocalDataSource;
+  final AuthLocalDataSource _authLocalDataSource;
 
   const AuthInterceptor(this._authLocalDataSource);
 

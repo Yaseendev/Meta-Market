@@ -21,14 +21,14 @@ class BarcodeCubit extends Cubit<BaseState<int>> {
         emit(state.setFailureState(l));
       },
       (r) {
-        if (r.isEmpty) {
+        if (r.products.isEmpty) {
           emit(
             state.setFailureState(
               ProductNotFoundFailure(message: LocaleKeys.productNotFound),
             ),
           );
         } else {
-          emit(state.setSuccessState(r.first.id));
+          emit(state.setSuccessState(r.products.first.id));
         }
       },
     );
