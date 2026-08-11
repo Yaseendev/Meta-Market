@@ -9,10 +9,10 @@ import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
 import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart';
+import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart';
 import 'package:supermarket/features/Settings/presentation/widgets/language_list_view.dart';
 import 'package:supermarket/features/Settings/presentation/widgets/settings_tile.dart';
 import 'package:supermarket/features/User/presentation/blocs/delete_profile/delete_profile_cubit.dart';
-import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
 
 class SettingsScreen extends StatelessWidget {
   SettingsScreen({super.key});
@@ -25,8 +25,7 @@ class SettingsScreen extends StatelessWidget {
       bloc: _deleteProfileCubit,
       listener: (context, state) {
         if (state.isSuccess) {
-          getIt<ProfileCubit>().reset();
-          context.go(AppRoutes.login);
+          context.read<AuthBloc>().add(LogOutEvent());
         }
       },
       child: Scaffold(
@@ -84,12 +83,68 @@ class SettingsScreen extends StatelessWidget {
                 SettingsTile(
                   icon: Icons.person_remove_rounded,
                   title: LocaleKeys.deleteAccount.tr(context: context),
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          LocaleKeys.deleteAccount.tr(context: context),
+                        ),
+                        content: Text(
+                          LocaleKeys.deleteAccountMsg.tr(context: context),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: Text(LocaleKeys.delete.tr(context: context)),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text(LocaleKeys.cancel.tr(context: context)),
+                          ),
+                        ],
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        _deleteProfileCubit.deleteUser();
+                      }
+                    });
+                  },
                 ),
                 SettingsTile(
                   icon: Icons.logout,
                   title: LocaleKeys.logout.tr(context: context),
-                  onTap: () {},
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          LocaleKeys.logout.tr(context: context),
+                        ),
+                        content: Text(
+                          LocaleKeys.logoutMsg.tr(context: context),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: Text(LocaleKeys.delete.tr(context: context)),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text(LocaleKeys.cancel.tr(context: context)),
+                          ),
+                        ],
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        context.read<AuthBloc>().add(LogOutEvent());
+                      }
+                    });
+                  },
                 ),
               ],
             ),

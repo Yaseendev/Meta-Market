@@ -2,22 +2,23 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supermarket/core/data/repositories/base_repository_impl.dart';
+import 'package:supermarket/core/domain/types.dart';
 import 'package:supermarket/core/errors/auth_token_failure.dart';
 import 'package:supermarket/core/errors/failure.dart';
+import 'package:supermarket/features/Auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:supermarket/features/Auth/domain/repositories/auth_repository.dart';
-import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart';
 import 'package:supermarket/features/User/data/models/app_user_model.dart';
 import 'package:supermarket/features/User/data/models/name_model.dart';
 import 'package:supermarket/features/User/domain/entities/app_user.dart';
-import '../datasources/auth_remote_datasource.dart';
+import '../datasources/remote/auth_remote_datasource.dart';
 
 @LazySingleton(as: AuthRepository)
 class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
-  final UserLocalDataSource userLocalDataSource;
+  final AuthLocalDataSource authLocalDataSource;
   final AuthRemoteDataSource authRemoteDataSource;
 
   AuthRepositoryImpl({
-    required this.userLocalDataSource,
+    required this.authLocalDataSource,
     required this.authRemoteDataSource,
   });
 
@@ -25,7 +26,7 @@ class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
   Future<Either<Failure, Unit>> checkUser() async {
     return await request(
       () async {
-        final String? authToken = await userLocalDataSource.getToken();
+        final String? authToken = await authLocalDataSource.getToken();
         if (authToken == null)
           return Left(AuthTokenFailure(message: 'No Token'));
         // await authRemoteDataSource.checkToken(authToken);
@@ -40,7 +41,7 @@ class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
     return await request(
       () async {
         final result = await authRemoteDataSource.login(email, password);
-        await userLocalDataSource.saveToken(result['token']);
+        await authLocalDataSource.saveToken(result['token']);
         return Right(AppUserModel.fromMap(result['user']));
       },
     );
@@ -53,7 +54,7 @@ class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
       () async {
         final result = await authRemoteDataSource.signup(
             email, password, name, phoneNumber);
-        await userLocalDataSource.saveToken(result['token']);
+        await authLocalDataSource.saveToken(result['token']);
         return Right(AppUserModel.fromMap(result['user']));
       },
     );
@@ -72,9 +73,17 @@ class AuthRepositoryImpl with BaseRepositoryImpl implements AuthRepository {
         final result = await authRemoteDataSource.authWithGoogle(
             gAuth.accessToken ?? '',
             NameModel.fromFullName(googleAcount.displayName ?? ''));
-        await userLocalDataSource.saveToken(result['token']);
+        await authLocalDataSource.saveToken(result['token']);
         return Right(AppUserModel.fromMap(result['user']));
       },
     );
+  }
+
+  @override
+  FutureOrEitherFailureOrData<Unit> logout() async {
+    return await request(() async {
+      await authLocalDataSource.deleteToken();
+      return const Right(unit);
+    });
   }
 }

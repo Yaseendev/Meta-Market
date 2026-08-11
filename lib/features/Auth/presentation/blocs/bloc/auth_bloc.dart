@@ -6,6 +6,7 @@ import 'package:supermarket/core/errors/no_connection_failure.dart';
 import 'package:supermarket/core/domain/use_case/no_params.dart';
 import 'package:supermarket/features/Auth/domain/use_cases/check_app_state_use_case.dart';
 import 'package:supermarket/features/Auth/domain/use_cases/google_auth_use_case.dart';
+import 'package:supermarket/features/Auth/domain/use_cases/log_out_use_case.dart';
 import 'package:supermarket/features/Auth/domain/use_cases/login_use_case.dart';
 import 'package:supermarket/features/Auth/domain/use_cases/signup_use_case.dart';
 import 'package:supermarket/features/User/data/models/name_model.dart';
@@ -19,61 +20,93 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignupUseCase _signupUseCase;
   final GoogleAuthUseCase _googleAuthUseCase;
   final CheckAppStateUseCase _checkAppStateUseCase;
+  final LogOutUseCase _logOutUseCase;
   AuthBloc(
     this._loginUseCase,
     this._signupUseCase,
     this._googleAuthUseCase,
     this._checkAppStateUseCase,
+    this._logOutUseCase,
   ) : super(AuthInitial()) {
     on<CheckAuthState>((event, emit) async {
       emit(AuthLoading());
       await _checkAppStateUseCase()
-          .then((value) => value.fold(
-              (l) => emit(l is AuthTokenFailure
-                  ? AuthLoggedOut()
-                  : l is NoInternetConnectionFailure
-                      ? AuthNoInternet()
-                      : AuthError(msg: l.message)),
-              (r) => emit(AuthLoggedIn())))
+          .then(
+            (value) => value.fold(
+              (l) => emit(
+                l is AuthTokenFailure
+                    ? AuthLoggedOut()
+                    : l is NoInternetConnectionFailure
+                    ? AuthNoInternet()
+                    : AuthError(msg: l.message),
+              ),
+              (r) => emit(AuthLoggedIn()),
+            ),
+          )
           .onError((error, stackTrace) {
-        emit(AuthError(msg: error.toString()));
-      });
+            emit(AuthError(msg: error.toString()));
+          });
     });
 
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
       final failureOrSuccess = await _loginUseCase(
-          LoginParams(email: event.email, password: event.password));
+        LoginParams(email: event.email, password: event.password),
+      );
       failureOrSuccess.fold(
-          (failure) => emit(failure is NoInternetConnectionFailure
+        (failure) => emit(
+          failure is NoInternetConnectionFailure
               ? AuthNoInternet()
-              : AuthError(msg: failure.message)),
-          (success) => emit(AuthLoggedIn(/*user: success*/)));
+              : AuthError(msg: failure.message),
+        ),
+        (success) => emit(AuthLoggedIn(/*user: success*/)),
+      );
     });
 
     on<SingUpEvent>((event, emit) async {
       emit(AuthLoading());
-      final failureOrSuccess = await _signupUseCase(SignupParams(
-        email: event.email,
-        password: event.password,
-        name: event.name,
-        phoneNumber: event.phone,
-      ));
+      final failureOrSuccess = await _signupUseCase(
+        SignupParams(
+          email: event.email,
+          password: event.password,
+          name: event.name,
+          phoneNumber: event.phone,
+        ),
+      );
       failureOrSuccess.fold(
-          (failure) => emit(failure is NoInternetConnectionFailure
+        (failure) => emit(
+          failure is NoInternetConnectionFailure
               ? AuthNoInternet()
-              : AuthError(msg: failure.message)),
-          (success) => emit(AuthLoggedIn(/*user: success*/)));
+              : AuthError(msg: failure.message),
+        ),
+        (success) => emit(AuthLoggedIn(/*user: success*/)),
+      );
     });
 
     on<GoogleAuthEvent>((event, emit) async {
       emit(AuthGoogleLoading());
       final failureOrSuccess = await _googleAuthUseCase(NoParams());
       failureOrSuccess.fold(
-          (failure) => emit(failure is NoInternetConnectionFailure
+        (failure) => emit(
+          failure is NoInternetConnectionFailure
               ? AuthNoInternet()
-              : AuthError(msg: failure.message)),
-          (success) => emit(AuthLoggedIn(/*user: success*/)));
+              : AuthError(msg: failure.message),
+        ),
+        (success) => emit(AuthLoggedIn(/*user: success*/)),
+      );
+    });
+
+    on<LogOutEvent>((event, emit) async {
+      emit(AuthGoogleLoading());
+      final failureOrSuccess = await _logOutUseCase(NoParams());
+      failureOrSuccess.fold(
+        (failure) => emit(
+          failure is NoInternetConnectionFailure
+              ? AuthNoInternet()
+              : AuthError(msg: failure.message),
+        ),
+        (success) => emit(AuthLoggedOut()),
+      );
     });
   }
 }

@@ -79,5 +79,7 @@
     "processing": "Processing",
     "cancelled": "Cancelled",
     "en": "English",
-    "ar": "العربية"
+    "ar": "العربية",
+    "deleteAccountMsg": "Are you sure you want to delete your account?",
+    "logoutMsg": "Are you sure you want to Log Out?"
 }

@@ -8,4 +8,5 @@ abstract class AuthRepository {
   FutureOrEitherFailureOrData<AppUser> login(String email, String password);
   FutureOrEitherFailureOrData<AppUser> signup(String email, String password, NameModel name, String phoneNumber);
   FutureOrEitherFailureOrData<AppUser> authWithGoogle();
+  FutureOrEitherFailureOrData<Unit> logout();
 }

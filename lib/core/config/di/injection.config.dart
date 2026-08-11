@@ -37,7 +37,7 @@ import 'package:supermarket/features/Address/presentation/blocs/address/address_
     as _i784;
 import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart'
     as _i476;
-import 'package:supermarket/features/Auth/data/datasources/auth_remote_datasource.dart'
+import 'package:supermarket/features/Auth/data/datasources/remote/auth_remote_datasource.dart'
     as _i636;
 import 'package:supermarket/features/Auth/data/repositories/auth_repository_impl.dart'
     as _i799;

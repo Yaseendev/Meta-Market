@@ -37,3 +37,5 @@ class SingUpEvent extends AuthEvent {
 }
 
 class GoogleAuthEvent extends AuthEvent {}
+
+class LogOutEvent extends AuthEvent {}
