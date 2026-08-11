@@ -82,5 +82,7 @@ abstract class  LocaleKeys {
   static const completed = 'completed';
   static const processing = 'processing';
   static const cancelled = 'cancelled';
+  static const en = 'en';
+  static const ar = 'ar';
 
 }

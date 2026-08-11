@@ -1,7 +1,8 @@
+import 'package:flutter/painting.dart' show Locale;
 import 'package:intl/intl.dart';
 
 void main() {
-  print(TextUtil.formatDate(DateTime.now()));
+  print(Locale('en').languageCode);
 }
 
 class TextUtil {

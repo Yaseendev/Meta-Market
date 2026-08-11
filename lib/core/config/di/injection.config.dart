@@ -119,6 +119,18 @@ import 'package:supermarket/features/Product/presentation/blocs/product/product_
     as _i157;
 import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart'
     as _i814;
+import 'package:supermarket/features/Settings/data/data_sources/local/settings_local_data_source.dart'
+    as _i527;
+import 'package:supermarket/features/Settings/data/repositories/settings_repository_impl.dart'
+    as _i540;
+import 'package:supermarket/features/Settings/domain/repositories/settings_repository.dart'
+    as _i1027;
+import 'package:supermarket/features/Settings/domain/use_cases/get_current_locale_use_case.dart'
+    as _i279;
+import 'package:supermarket/features/Settings/domain/use_cases/set_current_locale_use_case.dart'
+    as _i155;
+import 'package:supermarket/features/Settings/presentation/blocs/language/language_cubit.dart'
+    as _i242;
 import 'package:supermarket/features/User/data/datasources/user_local_datasource.dart'
     as _i744;
 import 'package:supermarket/features/User/data/datasources/user_remote_datasource.dart'
@@ -175,6 +187,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i274.OrdersRemoteDataSource>(
       () => _i274.OrdersRemoteDataSourceImpl.new(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i527.SettingsLocalDataSource>(
+      () => _i527.SettingsLocalDataSourceImpl(gh<_i460.SharedPreferences>()),
+    );
     gh.lazySingleton<_i671.CartRepository>(
       () => _i927.CartRepositoryImpl(gh<_i652.CartRemoteDataSource>()),
     );
@@ -209,6 +224,15 @@ extension GetItInjectableX on _i174.GetIt {
         googleSignIn: gh<_i116.GoogleSignIn>(),
       ),
     );
+    gh.lazySingleton<_i1027.SettingsRepository>(
+      () => _i540.SettingsRepositoryImpl(gh<_i527.SettingsLocalDataSource>()),
+    );
+    gh.lazySingleton<_i155.SetCurrentLocaleUseCase>(
+      () => _i155.SetCurrentLocaleUseCase(gh<_i1027.SettingsRepository>()),
+    );
+    gh.lazySingleton<_i279.GetCurrentLocaleUseCase>(
+      () => _i279.GetCurrentLocaleUseCase(gh<_i1027.SettingsRepository>()),
+    );
     gh.lazySingleton<_i941.ProductRepository>(
       () => _i623.ProductRepositoryImpl(gh<_i584.ProductRemoteDataSource>()),
     );
@@ -239,6 +263,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i552.CategoriesCubit>(
       () => _i552.CategoriesCubit(gh<_i347.GetCategoriesUseCase>()),
     );
+    await gh.lazySingletonAsync<_i242.LanguageCubit>(() {
+      final i = _i242.LanguageCubit(
+        gh<_i279.GetCurrentLocaleUseCase>(),
+        gh<_i155.SetCurrentLocaleUseCase>(),
+      );
+      return i.getInitLanguage().then((_) => i);
+    }, preResolve: true);
     gh.lazySingleton<_i84.HomeRepository>(
       () => _i1001.HomeRepositoryImpl(gh<_i1037.HomeRemoteDataSource>()),
     );

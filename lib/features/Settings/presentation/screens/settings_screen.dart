@@ -9,6 +9,7 @@ import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
 import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart';
+import 'package:supermarket/features/Settings/presentation/widgets/language_list_view.dart';
 import 'package:supermarket/features/Settings/presentation/widgets/settings_tile.dart';
 import 'package:supermarket/features/User/presentation/blocs/delete_profile/delete_profile_cubit.dart';
 import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
@@ -68,7 +69,17 @@ class SettingsScreen extends StatelessWidget {
                 SettingsTile(
                   icon: Icons.language,
                   title: LocaleKeys.language.tr(context: context),
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      constraints: const BoxConstraints(
+                        minWidth: 650,
+                        maxWidth: 650,
+                      ),
+                      showDragHandle: true,
+                      builder: (context) => LanguageListView(),
+                    );
+                  },
                 ),
                 SettingsTile(
                   icon: Icons.person_remove_rounded,

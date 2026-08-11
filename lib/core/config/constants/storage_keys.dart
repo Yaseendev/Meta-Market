@@ -2,4 +2,5 @@ final class StorageKeys {
   static const String token = 'token';
   static const String user = 'user';
   static const String hasRunBefore = 'hasRunBefore';
+  static const String locale = 'locale';
 }
