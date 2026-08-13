@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/constants/images.dart';
 import 'package:supermarket/core/config/constants/routes.dart';
+import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/dialogs/dialogs.dart';
+import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
 import '../blocs/bloc/auth_bloc.dart';
 import '../widgets/login_form.dart';
 
@@ -20,8 +22,7 @@ class LoginScreen extends StatelessWidget {
         } else if (state is AuthError) {
           showErrorSnackBar(context, state.msg);
         } else if (state is AuthLoggedIn) {
-          //TODO: LoadUserData + Go to home screen
-          print('Logged in |)');
+          getIt<ProfileCubit>().loadUser();
           context.go(AppRoutes.home);
         }
       },

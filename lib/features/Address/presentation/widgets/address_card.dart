@@ -45,7 +45,7 @@ class AddressCard extends StatelessWidget {
                           Icons.check_rounded,
                           color: AppColors.PRIMARY_COLOR,
                         )
-                      : Container(),
+                      : const SizedBox.shrink(),
                 ),
           title: Text(address.details.label),
           subtitle: Text(address.details.toString()),

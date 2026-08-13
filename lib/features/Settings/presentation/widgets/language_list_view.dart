@@ -39,6 +39,7 @@ class LanguageListView extends StatelessWidget {
             ),
             onChanged: (value) {
               if (value != null) {
+                context.setLocale(value);
                 _languageCubit.changeLanguage(value.languageCode);
                 Navigator.of(ctx).pop();
               }

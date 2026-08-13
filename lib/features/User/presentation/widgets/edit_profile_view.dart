@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart'as ea;
+import 'package:easy_localization/easy_localization.dart' as ea;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -47,8 +47,11 @@ class _EditProfileViewState extends State<EditProfileView> {
       },
       child: ListView(
         children: [
-          const SizedBox(height: UIMetrics.lg),
-          const CircleAvatar(child: Icon(Icons.person_outline_rounded)),
+          const SizedBox(height: UIMetrics.xs),
+          const CircleAvatar(
+            child: Icon(Icons.person_outline_rounded, size: 45),
+            radius: 50,
+          ),
           const SizedBox(height: UIMetrics.lg),
           Form(
             key: _formKey,
@@ -108,7 +111,7 @@ class _EditProfileViewState extends State<EditProfileView> {
                   initialValue: widget.user.email,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(100),
+                      borderRadius: BorderRadius.circular(UIMetrics.radius),
                     ),
                     hintText: LocaleKeys.email.tr(context: context),
                     prefixIcon: Icon(Icons.email_outlined),
@@ -137,9 +140,6 @@ class _EditProfileViewState extends State<EditProfileView> {
                       ),
                       hintText: LocaleKeys.phoneNumber.tr(context: context),
                       prefixIcon: const Icon(Icons.phone),
-                      errorText: LocaleKeys.invalidPhoneNumber.tr(
-                        context: context,
-                      ),
                     ),
                     pickerDialogStyle: PickerDialogStyle(
                       countryCodeStyle: TextStyle(color: Colors.black),
@@ -159,11 +159,12 @@ class _EditProfileViewState extends State<EditProfileView> {
                     },
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: UIMetrics.lg),
                 BlocBuilder<EditProfileCubit, BaseState<AppUser>>(
                   bloc: _editProfileCubit,
                   builder: (context, state) {
                     return AppButton(
+                      expanded: true,
                       title: LocaleKeys.saveChanges.tr(context: context),
                       onPress: _editProfileCubit.editProfile,
                       isLoading: state.isLoading,

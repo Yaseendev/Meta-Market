@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supermarket/core/config/constants/routes.dart';
+import 'package:supermarket/core/config/di/injection.dart';
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart';
+import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
 import '../widgets/splash_no_internet_widget.dart';
 import '../widgets/splash_error_widget.dart';
 import '../widgets/splash_loading_widget.dart';
@@ -28,6 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthLoggedIn) {
+          getIt<ProfileCubit>().loadUser();
           return context.go(AppRoutes.home);
         } else if (state is AuthLoggedOut) {
           return context.go(AppRoutes.login);

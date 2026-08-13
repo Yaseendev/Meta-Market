@@ -33,7 +33,7 @@ class AppUserModel extends AppUser {
     final result = <String, dynamic>{};
 
     result.addAll({'id': id});
-    // result.addAll({'name': name.toMap()});
+    result.addAll({'name': name.toJson()});
     result.addAll({'email': email});
     result.addAll({'phoneNumber': phoneNumber});
 

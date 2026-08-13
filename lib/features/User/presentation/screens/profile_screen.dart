@@ -33,7 +33,9 @@ class ProfileScreen extends StatelessWidget {
               if (state.isLoading) {
                 return LoadingWidget();
               } else if (state.isFailure) {
-                return ErrorView(onRetry: _profileCubit.loadUser);
+                return Center(
+                  child: ErrorView(onRetry: _profileCubit.loadUser),
+                );
               } else if (state.isSuccess && state.item != null) {
                 return EditProfileView(
                   state.item!,

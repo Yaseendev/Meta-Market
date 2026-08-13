@@ -24,7 +24,7 @@ class EditProfileCubit extends Cubit<BaseState<AppUser>> {
   void setEmail(String value) => _email = value;
   void setFirstName(String value) => _firstName = value;
   void setLastName(String value) => _lastName = value;
-  void setPhone(String value) => _email = value;
+  void setPhone(String value) => _phone = value;
 
   void editProfile() async {
     emit(state.setLoadingState());
