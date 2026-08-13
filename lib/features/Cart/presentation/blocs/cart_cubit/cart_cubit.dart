@@ -8,6 +8,9 @@ import 'package:supermarket/features/Cart/domain/usecases/add_item_use_case.dart
 import 'package:supermarket/features/Cart/domain/usecases/get_cart_use_case.dart';
 import 'package:supermarket/features/Cart/domain/usecases/remove_item_use_case.dart';
 import 'package:supermarket/features/Cart/domain/usecases/update_item_use_case.dart';
+import 'package:supermarket/features/Orders/domain/entities/create_order_request.dart';
+import 'package:supermarket/features/Orders/domain/entities/order_item_request.dart';
+import 'package:supermarket/features/Orders/domain/use_cases/create_order_use_case.dart';
 import 'package:supermarket/features/Product/domain/entities/product.dart';
 
 part 'cart_state.dart';
@@ -18,12 +21,14 @@ class CartCubit extends Cubit<BaseState<CartState>> {
   final AddItemUseCase _addItemUseCase;
   final UpdateItemUseCase _updateItemUseCase;
   final RemoveItemUseCase _removeItemUseCase;
+  final CreateOrderUseCase _checkOutUseCase;
 
   CartCubit(
     this._getCartUseCase,
     this._addItemUseCase,
     this._updateItemUseCase,
     this._removeItemUseCase,
+    this._checkOutUseCase,
   ) : super(const BaseState.init());
 
   void getCart() async {
@@ -119,7 +124,7 @@ class CartCubit extends Cubit<BaseState<CartState>> {
         // Rollback
         final revItems = tempItems.map((currentItem) {
           if (currentItem.id == itemId) {
-            return currentItem.copyWith(quantity: currentItem.quantity - 1);
+            return currentItem.copyWith(quantity: (item?.quantity ?? 2) - 1);
           }
 
           return currentItem;
@@ -176,5 +181,39 @@ class CartCubit extends Cubit<BaseState<CartState>> {
 
   void changeDeliveryOption(DeliveryOption option) {
     emit(state.copyWith(item: state.item?.copyWith(deliveryOption: option)));
+  }
+
+  void checkOut() async {
+    final deliveryOption = state.item?.deliveryOption;
+    final items =
+        state.item?.items
+            .map(
+              (item) => OrderItemRequest(
+                productId: item.product.id,
+                quantity: item.quantity,
+              ),
+            )
+            .toList() ??
+        [];
+    if (deliveryOption != null && items.isNotEmpty) {
+      emit(state.copyWith(item: state.item?.copyWith(isCheckOut: true)));
+      final result = await _checkOutUseCase(
+        CreateOrderRequest(items: items, deliveryOption: deliveryOption),
+      );
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              status: BaseStatus.failure,
+              failure: failure,
+              item: state.item?.copyWith(isCheckOut: false),
+            ),
+          );
+        },
+        (_) {
+          emit(BaseState.init());
+        },
+      );
+    }
   }
 }

@@ -14,10 +14,16 @@ class ErrorView extends StatelessWidget {
       spacing: UIMetrics.lg,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(message ?? LocaleKeys.errorMsg.tr(context: context)),
+        Text(
+          message ?? LocaleKeys.errorMsg.tr(context: context),
+          textAlign: TextAlign.center,
+        ),
         ElevatedButton(
           onPressed: onRetry,
-          child: Text(LocaleKeys.retry.tr(context: context)),
+          child: Text(
+            LocaleKeys.retry.tr(context: context),
+            textAlign: TextAlign.center,
+          ),
         ),
       ],
     );

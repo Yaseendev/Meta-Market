@@ -91,5 +91,10 @@
     "sortBy": "Sort By",
     "relevance": "Relevance",
     "clearAll": "Clear All",
-    "apply": "Apply"
+    "apply": "Apply",
+    "yourCart": "Your Cart",
+    "selectDeliveryOption": "Please select a delivery option",
+    "checkoutComplete": "Checkout Complete",
+    "checkoutCompleteMsg": "Your Order is on the way!",
+    "trackOrder": "Track Order"
 }

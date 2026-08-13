@@ -1,8 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supermarket/core/config/constants/routes.dart';
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
 import 'package:supermarket/features/Categories/domain/entities/category.dart';
+import 'package:supermarket/features/Categories/presentations/blocs/categories_cubit/categories_cubit.dart';
+import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart';
 
 class HomeCategoryCard extends StatelessWidget {
   final Category category;
@@ -10,29 +15,38 @@ class HomeCategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 5,
-      children: [
-        Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(UIMetrics.sm),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(UIMetrics.xs),
-            child: CachedNetworkImage(
-              imageUrl: category.image ?? '',
-              alignment: Alignment.center,
-              fit: BoxFit.fill,
-              height: 60,
-              width: 60,
-              errorWidget: (context, url, error) =>
-                  Assets.images.placeholder.image(),
-              placeholder: (context, url) => Assets.images.placeholder.image(),
+    return GestureDetector(
+      onTap: () {
+        context.read<CategoriesCubit>().getCategories().then((_) {
+          context.read<ProductsCubit>().getProducts(categoryId: category.id);
+        });
+        context.go(AppRoutes.browse, extra: true);
+      },
+      child: Column(
+        spacing: 5,
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(UIMetrics.sm),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(UIMetrics.xs),
+              child: CachedNetworkImage(
+                imageUrl: category.image ?? '',
+                alignment: Alignment.center,
+                fit: BoxFit.fill,
+                height: 60,
+                width: 60,
+                errorWidget: (context, url, error) =>
+                    Assets.images.placeholder.image(),
+                placeholder: (context, url) =>
+                    Assets.images.placeholder.image(),
+              ),
             ),
           ),
-        ),
-        Text(category.name),
-      ],
+          Text(category.name),
+        ],
+      ),
     );
   }
 }

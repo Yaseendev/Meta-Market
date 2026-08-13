@@ -11,61 +11,80 @@ import 'package:supermarket/features/Address/presentation/blocs/addresses/addres
 
 class AddressCard extends StatelessWidget {
   final Address address;
-  const AddressCard(this.address, {super.key});
+  final bool simplified;
+  const AddressCard(this.address, {super.key, this.simplified = false});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push('${AppRoutes.addresses}/${AppRoutes.address}');
+        if (!simplified) {
+          context.push(
+            '${AppRoutes.addresses}/${AppRoutes.address}',
+            extra: address,
+          );
+        }
       },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(UIMetrics.radius),
         ),
         child: ListTile(
-          leading: IconButton(
-            onPressed: !address.isDefault
-                ? () {
-                    context.read<AddressesBloc>().add(MarkAsCurrent(address));
-                  }
-                : null,
-            icon: address.isDefault
-                ? Icon(Icons.check_rounded, color: AppColors.PRIMARY_COLOR)
-                : Container(),
-          ),
+          leading: simplified
+              ? null
+              : IconButton(
+                  onPressed: !address.isDefault
+                      ? () {
+                          context.read<AddressesBloc>().add(
+                            MarkAsCurrent(address),
+                          );
+                        }
+                      : null,
+                  icon: address.isDefault
+                      ? Icon(
+                          Icons.check_rounded,
+                          color: AppColors.PRIMARY_COLOR,
+                        )
+                      : Container(),
+                ),
           title: Text(address.details.label),
           subtitle: Text(address.details.toString()),
-          trailing: IconButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(LocaleKeys.deleteAddress.tr(context: context)),
-                  content: Text(
-                    LocaleKeys.deleteAddressMsg.tr(context: context),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(true);
-                      },
-                      child: Text(LocaleKeys.delete.tr(context: context)),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(false),
-                      child: Text(LocaleKeys.cancel.tr(context: context)),
-                    ),
-                  ],
+          trailing: simplified
+              ? null
+              : IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text(
+                          LocaleKeys.deleteAddress.tr(context: context),
+                        ),
+                        content: Text(
+                          LocaleKeys.deleteAddressMsg.tr(context: context),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(true);
+                            },
+                            child: Text(LocaleKeys.delete.tr(context: context)),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: Text(LocaleKeys.cancel.tr(context: context)),
+                          ),
+                        ],
+                      ),
+                    ).then((value) {
+                      if (value == true) {
+                        context.read<AddressesBloc>().add(
+                          DeleteAddress(address),
+                        );
+                      }
+                    });
+                  },
+                  icon: Icon(Icons.delete_rounded, color: Colors.red),
                 ),
-              ).then((value) {
-                if (value == true) {
-                  context.read<AddressesBloc>().add(DeleteAddress(address));
-                }
-              });
-            },
-            icon: Icon(Icons.delete_rounded, color: Colors.red),
-          ),
         ),
       ),
     );

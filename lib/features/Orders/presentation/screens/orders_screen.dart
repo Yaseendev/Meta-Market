@@ -20,42 +20,48 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(LocaleKeys.myOrders.tr(context: context))),
-      body: BlocBuilder<OrdersCubit, BaseState<List<Order>>>(
-        bloc: _ordersCubit,
-        builder: (context, state) {
-          if (state.isLoading) {
-            return LoadingWidget();
-          } else if (state.isFailure) {
-            return ErrorView(
-              message: state.failure?.message,
-              onRetry: () {
-                _ordersCubit.getOrders();
-              },
-            );
-          } else if (state.isSuccess) {
-            final orders = state.item ?? [];
-            return RefreshIndicator.noSpinner(
-              onRefresh: () {
-                return _ordersCubit.getOrders();
-              },
-              child: orders.isEmpty
-                  ? Center(
-                      child: Text(LocaleKeys.noOrders.tr(context: context)),
-                    )
-                  : ListView.separated(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: UIMetrics.xs,
-                        horizontal: UIMetrics.sm,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: UIMetrics.sm),
+        child: BlocBuilder<OrdersCubit, BaseState<List<Order>>>(
+          bloc: _ordersCubit,
+          builder: (context, state) {
+            if (state.isLoading) {
+              return LoadingWidget();
+            } else if (state.isFailure) {
+              return Center(
+                child: ErrorView(
+                  message: state.failure?.message,
+                  onRetry: () {
+                    _ordersCubit.getOrders();
+                  },
+                ),
+              );
+            } else if (state.isSuccess) {
+              final orders = state.item ?? [];
+              return RefreshIndicator.noSpinner(
+                onRefresh: () {
+                  return _ordersCubit.getOrders();
+                },
+                child: orders.isEmpty
+                    ? Center(
+                        child: Text(LocaleKeys.noOrders.tr(context: context)),
+                      )
+                    : ListView.separated(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: UIMetrics.xs,
+                          horizontal: UIMetrics.sm,
+                        ),
+                        itemCount: orders.length,
+                        itemBuilder: (context, index) =>
+                            OrderCard(orders[index]),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: UIMetrics.sm),
                       ),
-                      itemCount: orders.length,
-                      itemBuilder: (context, index) => OrderCard(orders[index]),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: UIMetrics.sm),
-                    ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
       ),
     );
   }

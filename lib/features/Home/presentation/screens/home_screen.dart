@@ -6,6 +6,7 @@ import 'package:supermarket/core/presentation/blocs/base_states/base_state.dart'
 import 'package:supermarket/core/presentation/constants/ui_spaces.dart';
 import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/core/presentation/utils/generated/generated_assets/assets.gen.dart';
+import 'package:supermarket/core/presentation/widgets/error_view.dart';
 import 'package:supermarket/features/Home/domain/entities/home_data.dart';
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart';
 import 'package:supermarket/features/Home/presentation/widgets/home_categories_view.dart';
@@ -84,9 +85,13 @@ class HomeScreen extends StatelessWidget {
             );
           } else if (state.isLoading) {
             return const Center(child: CircularProgressIndicator());
+          } else if (state.isFailure) {
+            return ErrorView(
+              onRetry: () {
+                context.read<HomeCubit>().getData();
+              },
+            );
           }
-          //TODO: implement error view
-
           return const SizedBox.shrink();
         },
       ),

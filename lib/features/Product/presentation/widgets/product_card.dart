@@ -33,17 +33,33 @@ class ProductCard extends StatelessWidget {
             spacing: 5,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(UIMetrics.sm),
-                ),
-                child: CachedNetworkImage(
-                  imageUrl: product.image ?? '',
-                  alignment: Alignment.center,
-                  fit: BoxFit.fill,
-                  height: 100,
-                  width: 120,
-                ),
+              Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(UIMetrics.sm),
+                    ),
+                    child: CachedNetworkImage(
+                      imageUrl: product.image ?? '',
+                      alignment: Alignment.center,
+                      fit: BoxFit.fill,
+                      height: 100,
+                      width: 140,
+                    ),
+                  ),
+                  Positioned.directional(
+                    textDirection: TextDirection.ltr,
+                    bottom: 0,
+                    end: 0,
+
+                    child: IconButton.filled(
+                      onPressed: () {
+                        context.read<CartCubit>().addItem(product);
+                      },
+                      icon: Icon(Icons.add_rounded),
+                    ),
+                  ),
+                ],
               ),
 
               Expanded(
@@ -59,6 +75,7 @@ class ProductCard extends StatelessWidget {
                           maxLines: 2,
                         ),
                       ),
+                      Text(product.brand ?? ''),
                       Text(
                         TextUtil.formatCurrency(
                           product.price,

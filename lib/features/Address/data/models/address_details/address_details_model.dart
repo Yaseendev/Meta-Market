@@ -6,7 +6,6 @@ part 'address_details_model.g.dart';
 
 @JsonSerializable()
 class AddressDetailsModel {
-  final int id;
   final String label;
   final String city;
   final String state;
@@ -26,7 +25,6 @@ class AddressDetailsModel {
   final GeoLocationModel position;
 
   const AddressDetailsModel({
-    required this.id,
     required this.label,
     required this.city,
     required this.state,
@@ -46,7 +44,6 @@ class AddressDetailsModel {
   Map<String, dynamic> toJson() => _$AddressDetailsModelToJson(this);
 
   AddressDetails toDomain() => AddressDetails(
-    id: id,
     city: city,
     phoneNumber: phoneNumber,
     label: label,

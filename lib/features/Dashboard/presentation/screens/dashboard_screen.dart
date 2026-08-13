@@ -8,7 +8,9 @@ import 'package:supermarket/core/presentation/translations/locale_keys.g.dart';
 import 'package:supermarket/features/Address/presentation/blocs/addresses/addresses_bloc.dart';
 import 'package:supermarket/features/Auth/presentation/blocs/bloc/auth_bloc.dart';
 import 'package:supermarket/features/Cart/presentation/blocs/cart_cubit/cart_cubit.dart';
+import 'package:supermarket/features/Categories/presentations/blocs/categories_cubit/categories_cubit.dart';
 import 'package:supermarket/features/Home/presentation/blocs/home/home_cubit.dart';
+import 'package:supermarket/features/Product/presentation/blocs/products_cubit/products_cubit.dart';
 import 'package:supermarket/features/User/presentation/blocs/profile/profile_cubit.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -26,6 +28,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final HomeCubit _homeCubit = getIt<HomeCubit>();
   final CartCubit _cartCubit = getIt<CartCubit>();
   final AddressesBloc _addressesBloc = getIt<AddressesBloc>();
+  final CategoriesCubit _categoriesCubit = getIt<CategoriesCubit>();
+  final ProductsCubit _productsCubit = getIt<ProductsCubit>();
   void _goTo(int index) {
     widget._navigationShell.goBranch(
       index,
@@ -46,6 +50,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         BlocProvider<HomeCubit>.value(value: _homeCubit),
         BlocProvider<CartCubit>.value(value: _cartCubit),
         BlocProvider<AddressesBloc>.value(value: _addressesBloc),
+        BlocProvider<CategoriesCubit>.value(value: _categoriesCubit),
+        BlocProvider<ProductsCubit>.value(value: _productsCubit),
       ],
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {

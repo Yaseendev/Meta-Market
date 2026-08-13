@@ -327,6 +327,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i521.DeleteUserUseCase>(
       () => _i521.DeleteUserUseCase(gh<_i768.UserRepository>()),
     );
+    gh.factory<_i772.CartCubit>(
+      () => _i772.CartCubit(
+        gh<_i660.GetCartUseCase>(),
+        gh<_i518.AddItemUseCase>(),
+        gh<_i1034.UpdateItemUseCase>(),
+        gh<_i818.RemoveItemUseCase>(),
+        gh<_i162.CreateOrderUseCase>(),
+      ),
+    );
     gh.factory<_i753.DeleteProfileCubit>(
       () => _i753.DeleteProfileCubit(gh<_i521.DeleteUserUseCase>()),
     );
@@ -341,14 +350,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i317.AddAddressUseCase>(
       () => _i317.AddAddressUseCase(gh<_i932.AddressRepository>()),
-    );
-    gh.factory<_i772.CartCubit>(
-      () => _i772.CartCubit(
-        gh<_i660.GetCartUseCase>(),
-        gh<_i518.AddItemUseCase>(),
-        gh<_i1034.UpdateItemUseCase>(),
-        gh<_i818.RemoveItemUseCase>(),
-      ),
     );
     gh.factory<_i476.AddressesBloc>(
       () => _i476.AddressesBloc(

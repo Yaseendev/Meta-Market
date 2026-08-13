@@ -22,4 +22,7 @@ class Address extends Equatable {
       isDefault: isDefault ?? this.isDefault,
     );
   }
+
+  ///For passing the instances around the routes
+  String toJson() => '';
 }

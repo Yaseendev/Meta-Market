@@ -20,9 +20,16 @@ class MoreProductsView extends StatelessWidget {
                 label,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
-              Wrap(
-                spacing: UIMetrics.xs,
-                children: products.map((p) => ProductCard(p)).toList(),
+              SizedBox(
+                height: 200,
+                child: ListView.separated(
+                  itemCount: products.length,
+                  itemBuilder: (context, index) => ProductCard(products[index]),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: UIMetrics.xs),
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                ),
               ),
             ],
     );

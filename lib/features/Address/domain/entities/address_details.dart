@@ -1,9 +1,7 @@
 import 'package:equatable/equatable.dart';
-
 import 'package:supermarket/features/Address/domain/entities/geo_location.dart';
 
 class AddressDetails extends Equatable {
-  final int id;
   final String label;
   final String city;
   final String state;
@@ -17,7 +15,6 @@ class AddressDetails extends Equatable {
   final GeoLocation position;
 
   const AddressDetails({
-    required this.id,
     required this.label,
     required this.city,
     required this.state,
@@ -32,7 +29,7 @@ class AddressDetails extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [label, city, position];
 
   @override
   String toString() =>
@@ -52,7 +49,6 @@ class AddressDetails extends Equatable {
     GeoLocation? position,
   }) {
     return AddressDetails(
-      id: this.id,
       label: label ?? this.label,
       city: city ?? this.city,
       state: state ?? this.state,

@@ -91,7 +91,7 @@ class _CartRemoteDataSourceImpl implements CartRemoteDataSourceImpl {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/cart/add',
+            '/cart/update',
             queryParameters: queryParameters,
             data: _data,
           )

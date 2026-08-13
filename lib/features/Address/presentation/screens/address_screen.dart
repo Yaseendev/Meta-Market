@@ -187,7 +187,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       invalidNumberMessage: LocaleKeys.invalidNumber.tr(
                         context: context,
                       ),
-                      autovalidateMode: AutovalidateMode.disabled,
+                      autovalidateMode: AutovalidateMode.always,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
@@ -196,9 +196,9 @@ class _AddressScreenState extends State<AddressScreen> {
                         ),
                         hintText: LocaleKeys.phoneNumber.tr(context: context),
                         prefixIcon: const Icon(Icons.phone),
-                        errorText: LocaleKeys.invalidPhoneNumber.tr(
-                          context: context,
-                        ),
+                        // errorText: LocaleKeys.invalidPhoneNumber.tr(
+                        //   context: context,
+                        // ),
                       ),
                       pickerDialogStyle: PickerDialogStyle(
                         countryCodeStyle: TextStyle(color: Colors.black),

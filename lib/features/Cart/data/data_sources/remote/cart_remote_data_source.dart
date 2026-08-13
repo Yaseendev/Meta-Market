@@ -33,7 +33,7 @@ abstract class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   });
 
   @override
-  @PUT(Urls.ADD_ITEM)
+  @PUT(Urls.UPDATE_ITEM)
   Future<dynamic> updateItem({
     @Field('product_id') required int productId,
     @Field() required int quantity,

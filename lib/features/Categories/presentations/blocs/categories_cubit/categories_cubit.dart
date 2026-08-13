@@ -9,7 +9,8 @@ class CategoriesCubit extends Cubit<BaseState<List<Category>>> {
   final GetCategoriesUseCase _getCategoriesUseCase;
   CategoriesCubit(this._getCategoriesUseCase) : super(const BaseState.init());
 
-  void getCategories() async {
+  Future<void> getCategories() async {
+    if (state.isLoading || state.isSuccess) return;
     emit(state.setLoadingState());
     final result = await _getCategoriesUseCase();
     result.fold(
