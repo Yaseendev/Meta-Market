@@ -50,6 +50,8 @@ dev_dependencies:
   flutter_gen: 5.11.0
   flutter_gen_runner: 5.11.0
   retrofit_generator: ^10.2.0
+  # flutter_native_splash: ^2.4.7
+  # flutter_launcher_icons: ^0.14.4
 
 flutter:
   uses-material-design: true
@@ -67,3 +69,17 @@ flutter_gen:
   output: lib/core/presentation/utils/generated/generated_assets/
   integrations:
     flutter_svg: true
+
+# flutter_native_splash:
+#   image: assets/images/logo.png
+#   color: "#000000"
+#   android: true
+#   ios: true
+
+# flutter_launcher_icons:
+#   android: "launcher_icon"
+#   ios: true
+#   image_path: "assets/images/logo_transparent.png"
+#   adaptive_icon_background: "#000000"
+#   adaptive_icon_foreground: "assets/images/logo_transparent.png"
+#   remove_alpha_ios: true
